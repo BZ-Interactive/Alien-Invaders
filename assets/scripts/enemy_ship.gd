@@ -18,11 +18,7 @@ func _ready() -> void:
 	cooldown_timer.wait_time = rng.randf_range(1, 4)
 	cooldown_timer.start()
 	Engeage()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
+	
 func drop_power_up() -> void:
 	if randf() <= power_up_chance:
 		var powerup = PowerupManager.Instance.get_power_rand_up().instantiate()
@@ -49,7 +45,7 @@ func will_shoot() -> bool:
 	return rng.randf() <= shoot_chance
 
 func Engeage() -> void:
-	while (true):
+	while health > 0:
 		await cooldown_timer.timeout
 		if will_shoot() and is_not_obstructed():
 			shoot()
