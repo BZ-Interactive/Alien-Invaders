@@ -11,7 +11,7 @@ var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 @export var health : float = 1.0
 
 @export_category("Power up")
-@export var power_up_chance : float = 10.1 # has to be between 0.0 and 1.0
+@export var power_up_chance : float = 0.1 # has to be between 0.0 and 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

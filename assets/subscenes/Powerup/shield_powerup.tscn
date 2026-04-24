@@ -9,6 +9,7 @@ radius = 24.0
 [node name="Shield powerup" type="Area2D" unique_id=1895558380]
 script = ExtResource("1_bjmfc")
 power_type = "shield"
+time = 5.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1264855154]
 scale = Vector2(6, 6)
