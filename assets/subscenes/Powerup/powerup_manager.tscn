@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bikcucdv8b4a8"]
+
+[ext_resource type="Script" uid="uid://dq80dn3wkknyg" path="res://assets/scripts/Powerup/powerup_manager.gd" id="1_xr5rk"]
+[ext_resource type="PackedScene" uid="uid://44flckpf14kd" path="res://assets/subscenes/Powerup/firerate_powerup.tscn" id="2_6p4t2"]
+[ext_resource type="PackedScene" uid="uid://yvkgv6vh4y34" path="res://assets/subscenes/Powerup/shield_powerup.tscn" id="3_0p38g"]
+[ext_resource type="PackedScene" uid="uid://b0be2ufjpccvj" path="res://assets/subscenes/Powerup/speed_powerup.tscn" id="4_3t7ba"]
+
+[node name="Powerup Manager" type="Node2D" unique_id=1577600470]
+script = ExtResource("1_xr5rk")
+powerup_array = Array[PackedScene]([ExtResource("2_6p4t2"), ExtResource("3_0p38g"), ExtResource("4_3t7ba")])

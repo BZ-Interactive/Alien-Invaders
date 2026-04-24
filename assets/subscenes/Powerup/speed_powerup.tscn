@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b0be2ufjpccvj"]
+
+[ext_resource type="Script" uid="uid://b5347hd6ymuho" path="res://assets/scripts/Powerup/powerup.gd" id="1_mov4n"]
+[ext_resource type="Texture2D" uid="uid://037vde4ecm6d" path="res://assets/sprites/SpaceRage/FX/proton_02.png" id="2_8ij6l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bp7nd"]
+radius = 24.0
+
+[node name="Speed powerup" type="Area2D" unique_id=1895558380]
+modulate = Color(0.4392157, 1, 0, 1)
+script = ExtResource("1_mov4n")
+power_type = "speed"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1264855154]
+scale = Vector2(6, 6)
+texture = ExtResource("2_8ij6l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=975272215]
+shape = SubResource("CircleShape2D_bp7nd")
+
+[connection signal="body_entered" from="." to="." method="_on_PowerUp_body_entered"]

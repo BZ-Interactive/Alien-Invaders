@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://co6rd13w70gcm"]
+
+[ext_resource type="Texture2D" uid="uid://b3camta2cki84" path="res://assets/sprites/SpaceRage/Enemies/enemy_1_r_m.png" id="1_1a1go"]
+[ext_resource type="Script" uid="uid://b3dhmskd3se2h" path="res://assets/scripts/enemy_ship.gd" id="1_yht6q"]
+[ext_resource type="PackedScene" uid="uid://obo7yr6tges0" path="res://assets/subscenes/projectile.tscn" id="2_w1js0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w1js0"]
+radius = 30.0
+
+[node name="Enemy Ship" type="CharacterBody2D" unique_id=1471936172 node_paths=PackedStringArray("cooldown_timer")]
+disable_mode = 1
+script = ExtResource("1_yht6q")
+projectile = ExtResource("2_w1js0")
+cooldown_timer = NodePath("Cooldown Timer")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=93024429]
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("1_1a1go")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1985694334]
+shape = SubResource("CircleShape2D_w1js0")
+debug_color = Color(0.9198904, 0.28524467, 0, 0.41960785)
+
+[node name="Cooldown Timer" type="Timer" parent="." unique_id=151922517]
+wait_time = 2.0

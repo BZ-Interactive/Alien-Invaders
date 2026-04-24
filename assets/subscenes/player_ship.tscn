@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://dpycr455cjx0w"]
+
+[ext_resource type="Script" uid="uid://cu8hm1040ykud" path="res://assets/scripts/player_ship.gd" id="1_7wvya"]
+[ext_resource type="Texture2D" uid="uid://b4erfp2w1mcab" path="res://assets/sprites/SpaceRage/Player/player_b_m.png" id="1_rx2q0"]
+[ext_resource type="PackedScene" uid="uid://obo7yr6tges0" path="res://assets/subscenes/projectile.tscn" id="2_bpkrg"]
+[ext_resource type="Texture2D" uid="uid://bsi3xy7p8ibv3" path="res://assets/sprites/SpaceRage/Player/player_b_l1.png" id="4_p71o1"]
+[ext_resource type="Texture2D" uid="uid://sdy8uryeaxfa" path="res://assets/sprites/SpaceRage/Player/player_b_r1.png" id="5_prim7"]
+[ext_resource type="Texture2D" uid="uid://dscj3xg8apy3p" path="res://assets/sprites/SpaceRage/Player/player_r_m.png" id="6_lsrpr"]
+[ext_resource type="Texture2D" uid="uid://dopq7ns6jebld" path="res://assets/sprites/SpaceRage/Player/player_r_l1.png" id="7_1hsqt"]
+[ext_resource type="Texture2D" uid="uid://dvardjct3v1g7" path="res://assets/sprites/SpaceRage/Player/player_r_r1.png" id="8_c2s3c"]
+[ext_resource type="Texture2D" uid="uid://dokc1xrj0faun" path="res://assets/sprites/SpaceRage/FX/proton_01.png" id="9_1hsqt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p71o1"]
+radius = 30.0
+
+[node name="Player Ship" type="CharacterBody2D" unique_id=1134166323 node_paths=PackedStringArray("fire_cooldown_timer", "powerup_timer", "shield_sprite", "idle_visual", "left_visual", "right_visual") groups=["player"]]
+script = ExtResource("1_7wvya")
+projectile = ExtResource("2_bpkrg")
+fire_cooldown_timer = NodePath("Fire Cooldown Timer")
+powerup_timer = NodePath("Powerup Timer")
+shield_sprite = NodePath("Shield Sprite2D")
+idle_visual = NodePath("Ship idle Sprite2D")
+left_visual = NodePath("Ship Left Sprite2D")
+right_visual = NodePath("Ship Right Sprite2D")
+idle_standard = ExtResource("1_rx2q0")
+left_standard = ExtResource("4_p71o1")
+right_standard = ExtResource("5_prim7")
+idle_powered = ExtResource("6_lsrpr")
+left_powered = ExtResource("7_1hsqt")
+right_powered = ExtResource("8_c2s3c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=895040520]
+shape = SubResource("CircleShape2D_p71o1")
+
+[node name="Ship idle Sprite2D" type="Sprite2D" parent="." unique_id=1989122219]
+texture = ExtResource("1_rx2q0")
+offset = Vector2(1.25, 3)
+
+[node name="Ship Left Sprite2D" type="Sprite2D" parent="." unique_id=915069776]
+visible = false
+texture = ExtResource("4_p71o1")
+offset = Vector2(1.25, 3)
+
+[node name="Ship Right Sprite2D" type="Sprite2D" parent="." unique_id=616426129]
+visible = false
+texture = ExtResource("5_prim7")
+offset = Vector2(1.25, 3)
+
+[node name="Fire Cooldown Timer" type="Timer" parent="." unique_id=1302214587]
+editor_description = "its autostarted because initlally you should not be firing, enemies can't if you can thats cheating"
+one_shot = true
+autostart = true
+
+[node name="Powerup Timer" type="Timer" parent="." unique_id=1349548900]
+wait_time = 2.0
+one_shot = true
+
+[node name="Shield Sprite2D" type="Sprite2D" parent="." unique_id=1011139866]
+visible = false
+modulate = Color(1, 1, 1, 0.5019608)
+scale = Vector2(10, 10)
+texture = ExtResource("9_1hsqt")

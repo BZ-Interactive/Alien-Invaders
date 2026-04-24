@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://yvkgv6vh4y34"]
+
+[ext_resource type="Script" uid="uid://b5347hd6ymuho" path="res://assets/scripts/Powerup/powerup.gd" id="1_bjmfc"]
+[ext_resource type="Texture2D" uid="uid://037vde4ecm6d" path="res://assets/sprites/SpaceRage/FX/proton_02.png" id="2_2uaxq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bp7nd"]
+radius = 24.0
+
+[node name="Shield powerup" type="Area2D" unique_id=1895558380]
+script = ExtResource("1_bjmfc")
+power_type = "shield"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1264855154]
+scale = Vector2(6, 6)
+texture = ExtResource("2_2uaxq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=975272215]
+shape = SubResource("CircleShape2D_bp7nd")
+
+[connection signal="body_entered" from="." to="." method="_on_PowerUp_body_entered"]

@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://dmpq4fdurtoru"]
+
+[ext_resource type="Script" uid="uid://0yqmgo21l4gp" path="res://assets/scripts/enemy_manager.gd" id="1_qwtv1"]
+[ext_resource type="Script" uid="uid://ckrrbs43xdukx" path="res://assets/scripts/enemy_spawner.gd" id="2_spidc"]
+[ext_resource type="PackedScene" uid="uid://co6rd13w70gcm" path="res://assets/subscenes/enemy_ship.tscn" id="3_yg3o2"]
+
+[node name="Enemies" type="Node2D" unique_id=207920044 node_paths=PackedStringArray("enemy_parent", "enemy_placements")]
+script = ExtResource("1_qwtv1")
+enemy_parent = NodePath("Enemy Parent")
+enemy_placements = [NodePath("Enemy Markers/Marker2D -0"), NodePath("Enemy Markers/Marker2D -1"), NodePath("Enemy Markers/Marker2D -2"), NodePath("Enemy Markers/Marker2D -3"), NodePath("Enemy Markers/Marker2D -4"), NodePath("Enemy Markers/Marker2D -5"), NodePath("Enemy Markers/Marker2D -6"), NodePath("Enemy Markers/Marker2D -7"), NodePath("Enemy Markers/Marker2D -8"), NodePath("Enemy Markers/Marker2D -9"), NodePath("Enemy Markers/Marker2D -10"), NodePath("Enemy Markers/Marker2D -11"), NodePath("Enemy Markers/Marker2D -12")]
+row_offset = 60.0
+
+[node name="Enemy Parent" type="Node2D" parent="." unique_id=392287]
+editor_description = "This is the parent node where the enemy ships should be added to"
+
+[node name="Enemy Spawner" type="Node2D" parent="." unique_id=610964148 node_paths=PackedStringArray("enemy_manager")]
+script = ExtResource("2_spidc")
+enemy_manager = NodePath("..")
+basic_enemy_scene = ExtResource("3_yg3o2")
+
+[node name="Enemy Markers" type="Node2D" parent="." unique_id=371962290]
+
+[node name="Marker2D -0" type="Marker2D" parent="Enemy Markers" unique_id=997166671]
+
+[node name="Marker2D -1" type="Marker2D" parent="Enemy Markers" unique_id=642256471]
+position = Vector2(60, 0)
+
+[node name="Marker2D -2" type="Marker2D" parent="Enemy Markers" unique_id=1579941349]
+position = Vector2(-60, 0)
+
+[node name="Marker2D -3" type="Marker2D" parent="Enemy Markers" unique_id=2140368461]
+position = Vector2(120, 0)
+
+[node name="Marker2D -4" type="Marker2D" parent="Enemy Markers" unique_id=1690918016]
+position = Vector2(-120, 0)
+
+[node name="Marker2D -5" type="Marker2D" parent="Enemy Markers" unique_id=1086113967]
+position = Vector2(180, 0)
+
+[node name="Marker2D -6" type="Marker2D" parent="Enemy Markers" unique_id=1785504307]
+position = Vector2(-180, 0)
+
+[node name="Marker2D -7" type="Marker2D" parent="Enemy Markers" unique_id=16364621]
+position = Vector2(240, 0)
+
+[node name="Marker2D -8" type="Marker2D" parent="Enemy Markers" unique_id=1470622761]
+position = Vector2(-240, 0)
+
+[node name="Marker2D -9" type="Marker2D" parent="Enemy Markers" unique_id=495285957]
+position = Vector2(300, 0)
+
+[node name="Marker2D -10" type="Marker2D" parent="Enemy Markers" unique_id=1407786996]
+position = Vector2(-300, 0)
+
+[node name="Marker2D -11" type="Marker2D" parent="Enemy Markers" unique_id=1101900578]
+position = Vector2(360, 0)
+
+[node name="Marker2D -12" type="Marker2D" parent="Enemy Markers" unique_id=1887747440]
+position = Vector2(-360, 0)

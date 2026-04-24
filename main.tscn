@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://8nats5am2k32"]
+
+[ext_resource type="Texture2D" uid="uid://m4rdb14y721a" path="res://assets/sprites/BG.png" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dpycr455cjx0w" path="res://assets/subscenes/player_ship.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dmpq4fdurtoru" path="res://assets/subscenes/enemies_scene.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bikcucdv8b4a8" path="res://assets/subscenes/Powerup/powerup_manager.tscn" id="4_272bh"]
+
+[node name="Main" type="Node2D" unique_id=1883818601]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1257399860]
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D" unique_id=449364170]
+scale = Vector2(2, 2)
+texture = ExtResource("1_0xm2m")
+
+[node name="Player ship" parent="." unique_id=1134166323 instance=ExtResource("1_ig7tw")]
+position = Vector2(0, 270)
+
+[node name="Enemies" parent="." unique_id=207920044 instance=ExtResource("3_h2yge")]
+number_of_enemies = 30
+
+[node name="Powerup Manager" parent="." unique_id=1577600470 instance=ExtResource("4_272bh")]
