@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bbqwfhrqg156"]
+
+[ext_resource type="Texture2D" uid="uid://cm1gp7yrkswx4" path="res://assets/sprites/logo/BZ-Interactive-Logo.png" id="1_e2c8y"]
+[ext_resource type="Script" uid="uid://cenw2qj6d43ft" path="res://assets/scripts/GUI/Intro.gd" id="1_w7g36"]
+[ext_resource type="Texture2D" uid="uid://d3uvvm2gynid1" path="res://assets/sprites/square.svg" id="2_y745p"]
+[ext_resource type="Texture2D" uid="uid://b5phimb7yaxdn" path="res://assets/icon/alien-invaders-icon.png" id="3_y745p"]
+
+[node name="Intro" type="CenterContainer" unique_id=1570683651 node_paths=PackedStringArray("org_logo", "icon_parent", "timer")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w7g36")
+org_logo = NodePath("Org Logo TextureRect")
+icon_parent = NodePath("Icon Background TextureRect")
+timer = NodePath("Wait Timer")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1789218069]
+custom_minimum_size = Vector2(1300, 740)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Org Logo TextureRect" type="TextureRect" parent="." unique_id=1521313112]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+texture = ExtResource("1_e2c8y")
+expand_mode = 1
+
+[node name="Icon Background TextureRect" type="TextureRect" parent="." unique_id=1600340393]
+custom_minimum_size = Vector2(510, 510)
+layout_mode = 2
+texture = ExtResource("2_y745p")
+expand_mode = 1
+
+[node name="Icon TextureRect" type="TextureRect" parent="Icon Background TextureRect" unique_id=250257731]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 505.0
+offset_bottom = 505.0
+texture = ExtResource("3_y745p")
+expand_mode = 1
+
+[node name="Wait Timer" type="Timer" parent="." unique_id=1427730389]
+one_shot = true
