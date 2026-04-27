@@ -1,0 +1,284 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{datetime2}
+
+\DTMnewdatestyle{CustomDateStyle}{%
+  \renewcommand{\DTMdisplaydate}[4]{%
+  \number##3.%               % Day
+  \DTMtwodigits{##2}.%       % Month
+  \number##1%                % Year
+  }%
+  \renewcommand{\DTMDisplaydate}{\DTMdisplaydate}%
+}
+\DTMsetdatestyle{CustomDateStyle}
+
+\title{\textbf{Test-Driven Development Specification}\\\Large Alien Invaders Game}
+\author{\textbf{Barkın Zorlu}}
+\date{\DTMtoday}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\section*{Document Control}
+
+\subsection*{Change Log}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{1.5cm}|p{2cm}|p{2.5cm}|p{5cm}|}
+\hline
+\textbf{Version} & \textbf{Date} & \textbf{Author} & \textbf{Description} \\
+\hline
+1.0 & \date{27.04.2026} & BZ-Interactive & Complete TDD Creation \\
+\hline
+ & & & \\
+\hline
+ & & & \\
+\hline
+ & & & \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section{Introduction}
+This document outlines the test-driven development (TDD) approach for the Alien Invaders game implemented in Godot 4.x. The game is a Space Invaders-style shooter with power-ups, enemy AI, and player controls.
+
+\section{Game Components Under Test}
+
+\subsection{1. Player Ship (\texttt{player\_ship.gd})}
+The player controls a spaceship that can move horizontally and shoot projectiles.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
+\hline
+\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
+\hline
+P1 & Move Left & Verify player moves left when left input is pressed \\
+\hline
+P2 & Move Right & Verify player moves right when right input is pressed \\
+\hline
+P3 & Boundary Clamp & Verify player cannot move beyond screen boundaries \\
+\hline
+P4 & Shoot Projectile & Verify player can fire projectiles with cooldown \\
+\hline
+P5 & Fire Rate Power-up & Verify firerate power-up reduces cooldown time \\
+\hline
+P6 & Speed Power-up & Verify speed power-up increases movement speed (2x) \\
+\hline
+P7 & Shield Power-up & Verify shield power-up grants damage immunity \\
+\hline
+P8 & Health Damage & Verify player takes damage when hit (shield inactive) \\
+\hline
+P9 & Death Condition & Verify player dies when health reaches 0 \\
+\hline
+P10 & Power-up Timer Expiry & Verify power-ups expire after specified duration \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{2. Enemy Ship (\texttt{enemy\_ship.gd})}
+Aliens that move, shoot at the player, and may drop power-ups.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
+\hline
+\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
+\hline
+E1 & Shooting Logic & Verify enemy fires based on random chance (shoot\_chance) \\
+\hline
+E2 & Cooldown Timer & Verify enemy respects random cooldown between shots (1-4s) \\
+\hline
+E3 & Obstruction Check & Verify enemy only shoots when path to player is clear \\
+\hline
+E4 & Health Damage & Verify enemy takes damage from player projectiles \\
+\hline
+E5 & Death Condition & Verify enemy is removed when health reaches 0 \\
+\hline
+E6 & Power-up Drop & Verify power-up drops with configured probability (10\%) \\
+\hline
+E7 & Row Offset Raycast & Verify raycast uses configured row\_offset distance \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{3. Projectile (\texttt{projectile.gd})}
+Projectiles fired by player and enemies.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
+\hline
+\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
+\hline
+PR1 & Direction Setting & Verify projectile moves in specified direction \\
+\hline
+PR2 & Speed Config & Verify projectile respects speed parameter (default 250) \\
+\hline
+PR3 & Rotation & Verify projectile rotates to face direction (90° offset) \\
+\hline
+PR4 & Collision Detection & Verify projectile detects collision with bodies \\
+\hline
+PR5 & Damage Application & Verify projectile applies damage to hit body \\
+\hline
+PR6 & Self Cleanup & Verify projectile destroys itself after lifetime expires \\
+\hline
+PR7 & Auto Cleanup & Verify projectile destroys itself on collision \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{4. Game Manager (\texttt{game\_manager.gd})}
+Central game state management.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
+\hline
+\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
+\hline
+G1 & Enemy Count Initialization & Verify initial enemy count is set correctly \\
+\hline
+G2 & Game Won State & Verify game\_ended flag set on victory \\
+\hline
+G3 & Game Lost State & Verify game\_ended flag set on defeat \\
+\hline
+G4 & Enemy Ship Count Decrement & Verify enemy count decrements when enemy dies \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{5. Enemy Manager (\texttt{enemy\_manager.gd})}
+Manages enemy spawning and positioning.
+
+\begin{table}[h]
+centering
+\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
+\hline
+\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
+\hline
+EM1 & Enemy Placement & Verify enemies are placed at designated markers \\
+\hline
+EM2 & Row Positioning & Verify enemies are offset vertically by row\_offset \\
+\hline
+EM3 & Row Wrapping & Verify placement wraps to new row after filling markers \\
+\hline
+EM4 & Initialize Count & Verify GameManager receives number\_of\_enemies \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{6. Enemy Spawner (\texttt{enemy\_spawner.gd})}
+Spawns enemies at game start.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
+\hline
+\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
+\hline
+ES1 & Spawn Count & Verify correct number of enemies are spawned \\
+\hline
+ES2 & Enemy Instantiation & Verify enemies are added to enemy manager \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{7. Power-up System (\texttt{powerup.gd}, \texttt{powerup\_manager.gd})}
+Manages power-ups that enhance player abilities.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
+\hline
+\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
+\hline
+PU1 & Drop Movement & Verify power-up falls downward at drop\_speed \\
+\hline
+PU2 & Player Collision & Verify power-up activates on player contact \\
+\hline
+PU3 & Power Application & Verify correct power is applied to player \\
+\hline
+PU4 & Duration & Verify power-up lasts for specified time duration \\
+\hline
+PU5 & Self Cleanup & Verify power-up removes itself after collection \\
+\hline
+PM1 & Random Selection & Verify random power-up is selected from array \\
+\hline
+PM2 & Singleton Instance & Verify PowerupManager is a singleton (Instance) \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Test Implementation Guidelines}
+
+\subsection{Godot Testing Framework}
+Tests should be implemented using Godot's built-in testing framework:
+
+\begin{lstlisting}[language=Python] %GDScript is pyhton like so good enough
+extends GutTest
+
+func test_player_movement():
+    var player = load("res://player_ship.tscn").instantiate()
+    add_child(player)
+    
+    # Simulate input
+    Input.action_press("ui_right")
+    await get_tree().process_frame
+    
+    assert_gt(player.velocity.x, 0, "Player should move right")
+    
+    Input.action_release("ui_right")
+    player.queue_free()
+\end{lstlisting}
+
+\section{Test Execution Order}
+
+\begin{enumerate}
+    \item Projectile tests (lowest dependency)
+    \item Power-up tests
+    \item Enemy ship tests
+    \item Player ship tests
+    \item Manager and spawner tests
+    \item Integration tests
+\end{enumerate}
+
+\section{Success Criteria}
+
+All tests must pass with 100\% coverage on game logic scripts. The game should:
+\begin{itemize}
+    \item Allow player to move within screen boundaries
+    \item Fire projectiles with configurable cooldown
+    \item Apply power-ups correctly with timer expiration
+    \item Enemies shoot and drop power-ups with RNG
+    \item Game state transitions work (win/loss conditions)
+    \item Projectiles collide and deal damage
+\end{itemize}
+
+\section{Appendices}
+
+\subsection{A. Test Data Requirements}
+\begin{itemize}
+    \item Player starting position: (0, 270)
+    \item Default fire cooldown: 100ms
+    \item Default player health: 3.0
+    \item Default enemy health: 1.0
+    \item Projectile speed: 250
+    \item Power-up drop chance: 10\%
+    \item Enemy shoot chance: 50\%
+\end{itemize}
+
+\end{document}
