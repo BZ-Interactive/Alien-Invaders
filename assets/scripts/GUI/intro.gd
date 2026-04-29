@@ -12,7 +12,6 @@ var skipable = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var color_delay_time = fade_time / 2
-	print(color_delay_time)
 	org_logo.modulate.a = 0
 	icon_parent.modulate.a = 0
 	
