@@ -115,6 +115,8 @@ texture = ExtResource("8_mbm7v")
 
 [node name="Invader VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Right Decor/Invader TextureRect" unique_id=1460029397]
 
+[connection signal="pressed" from="PanelContainer/AspectRatioContainer/VBoxContainer/Play Button" to="." method="on_play_pressed"]
+[connection signal="pressed" from="PanelContainer/AspectRatioContainer/VBoxContainer/Exit Button" to="." method="on_exit_pressed"]
 [connection signal="screen_exited" from="Right Decor/Player TextureRect/Player VisibleOnScreenNotifier2D" to="Right Decor" method="on_player_left_screen"]
 [connection signal="screen_exited" from="Right Decor/Fighter TextureRect/Fighter VisibleOnScreenNotifier2D" to="Right Decor" method="on_fighter_left_screen"]
 [connection signal="screen_exited" from="Right Decor/Invader TextureRect/Invader VisibleOnScreenNotifier2D" to="Right Decor" method="on_invader_left_screen"]
