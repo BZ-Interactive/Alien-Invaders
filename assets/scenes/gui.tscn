@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://4g85x5wnrk2r"]
+
+[ext_resource type="Texture2D" uid="uid://b5phimb7yaxdn" path="res://assets/icon/alien-invaders-icon.png" id="1_45f36"]
+[ext_resource type="Script" uid="uid://b55lj4uvmgik1" path="res://assets/scripts/GUI/gui.gd" id="1_avopy"]
+[ext_resource type="PackedScene" uid="uid://8nats5am2k32" path="res://assets/scenes/main.tscn" id="2_etql7"]
+[ext_resource type="Texture2D" uid="uid://m4rdb14y721a" path="res://assets/sprites/BG.png" id="2_trsu4"]
+[ext_resource type="Script" uid="uid://yc4oisy4sipu" path="res://assets/scripts/GUI/right_decor.gd" id="5_i3q7b"]
+[ext_resource type="Texture2D" uid="uid://b4erfp2w1mcab" path="res://assets/sprites/SpaceRage/Player/player_b_m.png" id="5_mi6j8"]
+[ext_resource type="Texture2D" uid="uid://b3camta2cki84" path="res://assets/sprites/SpaceRage/Enemies/enemy_1_r_m.png" id="7_lorg4"]
+[ext_resource type="Texture2D" uid="uid://de14k43rk8hjk" path="res://assets/sprites/SpaceRage/Enemies/enemy_2_r_m.png" id="8_mbm7v"]
+
+[node name="GUI" type="Control" unique_id=1134083047]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_avopy")
+game_scene = ExtResource("2_etql7")
+
+[node name="Background CenterContainer" type="CenterContainer" parent="." unique_id=1911593310]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -40.0
+offset_right = 10.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background CenterContainer" unique_id=218908885]
+z_index = -100
+custom_minimum_size = Vector2(1300, 720)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_trsu4")
+stretch_mode = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=252904078]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.1
+anchor_right = 0.252
+anchor_bottom = 0.90000004
+offset_right = 0.44000244
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer" unique_id=112862245]
+layout_mode = 2
+ratio = 0.35
+alignment_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/AspectRatioContainer" unique_id=7119979]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Spacer 1" type="Control" parent="PanelContainer/AspectRatioContainer/VBoxContainer" unique_id=1478409526]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Game Icon TextureRect" type="TextureRect" parent="PanelContainer/AspectRatioContainer/VBoxContainer" unique_id=1846348746]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("1_45f36")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Play Button" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer" unique_id=1194583902]
+self_modulate = Color(0, 1, 0.29411766, 1)
+layout_mode = 2
+text = "Play"
+
+[node name="Settings Button" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer" unique_id=1079502040]
+self_modulate = Color(1, 1, 0.2784314, 1)
+layout_mode = 2
+text = "Settings"
+
+[node name="Exit Button" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer" unique_id=321195285]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+text = "Exit
+"
+
+[node name="Right Decor" type="Control" parent="." unique_id=1560223950 node_paths=PackedStringArray("player", "fighter", "invader")]
+layout_mode = 1
+anchor_left = 0.254
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.11999512
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("5_i3q7b")
+player = NodePath("Player TextureRect")
+fighter = NodePath("Fighter TextureRect")
+invader = NodePath("Invader TextureRect")
+
+[node name="Player TextureRect" type="Sprite2D" parent="Right Decor" unique_id=1327453574]
+position = Vector2(470, 560)
+texture = ExtResource("5_mi6j8")
+
+[node name="Player VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Right Decor/Player TextureRect" unique_id=922970530]
+
+[node name="Fighter TextureRect" type="Sprite2D" parent="Right Decor" unique_id=1535135148]
+position = Vector2(193, 134)
+texture = ExtResource("7_lorg4")
+
+[node name="Fighter VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Right Decor/Fighter TextureRect" unique_id=1597405391]
+
+[node name="Invader TextureRect" type="Sprite2D" parent="Right Decor" unique_id=1291579312]
+position = Vector2(836, 66)
+texture = ExtResource("8_mbm7v")
+
+[node name="Invader VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Right Decor/Invader TextureRect" unique_id=1460029397]
+
+[connection signal="screen_exited" from="Right Decor/Player TextureRect/Player VisibleOnScreenNotifier2D" to="Right Decor" method="on_player_left_screen"]
+[connection signal="screen_exited" from="Right Decor/Fighter TextureRect/Fighter VisibleOnScreenNotifier2D" to="Right Decor" method="on_fighter_left_screen"]
+[connection signal="screen_exited" from="Right Decor/Invader TextureRect/Invader VisibleOnScreenNotifier2D" to="Right Decor" method="on_invader_left_screen"]

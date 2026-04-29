@@ -57,3 +57,9 @@ position = Vector2(360, 0)
 
 [node name="Marker2D -12" type="Marker2D" parent="Enemy Markers" unique_id=1887747440]
 position = Vector2(-360, 0)
+
+[node name="Marker2D -13" type="Marker2D" parent="Enemy Markers" unique_id=1181926551]
+position = Vector2(420, 0)
+
+[node name="Marker2D -14" type="Marker2D" parent="Enemy Markers" unique_id=1657386019]
+position = Vector2(-420, 0)

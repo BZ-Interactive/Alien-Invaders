@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="alien-invaders"
-run/main_scene="uid://8nats5am2k32"
+config/version="0.3"
+run/main_scene="uid://bbqwfhrqg156"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://b5phimb7yaxdn"
 
 [autoload]
 
 GameManager="*uid://dasnxbbcly48w"
+SceneLoader="*uid://dhyvads54luph"
 
 [display]
 
