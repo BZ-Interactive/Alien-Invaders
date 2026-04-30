@@ -1,5 +1,6 @@
 extends Control
 
+@export var main_menu : Control
 @export var player : Sprite2D
 @export var fighter : Sprite2D
 @export var invader : Sprite2D
@@ -11,10 +12,10 @@ var player_speed : float = 200
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	move_player_up(delta)
-	move_fighter_down(delta)
-	move_invader_down(delta)
-	pass
+	if main_menu.visible:
+		move_player_up(delta)
+		move_fighter_down(delta)
+		move_invader_down(delta)
 
 func move_fighter_down(delta: float):
 	fighter.position.y += fighter_speed * delta

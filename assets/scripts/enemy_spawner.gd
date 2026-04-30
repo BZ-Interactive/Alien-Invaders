@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func spawn_enemies():
 	var spawned_count = 0
-	while spawned_count <= enemy_manager.number_of_enemies:
+	while spawned_count < enemy_manager.number_of_enemies:
 		spawn_enemy()
 		spawned_count += 1
 

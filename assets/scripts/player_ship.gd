@@ -105,7 +105,7 @@ func shoot() -> void:
 		var shot = projectile.instantiate()
 		shot.shoot(shooting_direction)
 		shot.position = global_position + shooting_direction * 50
-		get_tree().root.add_child(shot)
+		GameManager.current_game_scene.projectile_parent.add_child(shot)
 		fire_cooldown_timer.start()
 
 func reset_powerup():

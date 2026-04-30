@@ -9,8 +9,8 @@ var current_count : int
 var row_count : int
 
 func _ready() -> void:
+	GameManager.enemy_manager = self
 	row_count = 0
-	GameManager.enemy_ship_count = number_of_enemies
 
 func add_enemy(body : CharacterBody2D):
 	enemy_parent.add_child.call_deferred(body)
@@ -21,6 +21,11 @@ func add_enemy(body : CharacterBody2D):
 	body.position.y -= row_offset * row_count
 	
 	current_count += 1
-	if current_count > len(enemy_placements):
+	if current_count >= len(enemy_placements):
 		row_count += 1
 		current_count = 0
+
+func decrement_enemy_count():
+	number_of_enemies -= 1
+	if number_of_enemies <= 0:
+		GameManager.game_won()

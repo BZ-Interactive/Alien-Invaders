@@ -22,8 +22,7 @@ func _ready() -> void:
 func drop_power_up() -> void:
 	if randf() <= power_up_chance:
 		var powerup = PowerupManager.Instance.get_power_rand_up().instantiate()
-		get_tree().root.add_child.call_deferred(powerup)
-		#powerup.owner = get_tree().root
+		GameManager.current_game_scene.projectile_parent.add_child.call_deferred(powerup)
 		powerup.position = self.position
 		pass
 
@@ -56,10 +55,10 @@ func shoot() -> void:
 	var shot = projectile.instantiate()
 	shot.position = self.global_position + shooting_direction * 50
 	shot.shoot(shooting_direction)
-	get_tree().root.add_child(shot)
+	GameManager.current_game_scene.projectile_parent.add_child(shot)
 
 func die():
-	GameManager.enemy_ship_count -= 1
+	GameManager.enemy_manager.decrement_enemy_count()
 	self.queue_free()
 
 func damage(dmg : float) -> void:

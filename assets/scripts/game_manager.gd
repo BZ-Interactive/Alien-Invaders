@@ -1,6 +1,9 @@
 extends Node2D
 
-@export var enemy_ship_count : int = 4
+@export var enemy_manager : Node2D
+@export var current_game_scene : Node2D
+@export var main_menu : Control
+
 
 var game_ended : bool = false
 
@@ -10,8 +13,8 @@ func _ready() -> void:
 
 func game_won():
 	game_ended = true
-	print("Won!!!")
-	
+	current_game_scene.game_end_popup.game_won()
+
 func game_lost():
 	game_ended = true
-	print("Lost!!!")
+	current_game_scene.game_end_popup.game_lost()

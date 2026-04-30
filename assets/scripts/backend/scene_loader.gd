@@ -1,7 +1,5 @@
 extends Node
 
-var gui_path : String = "res://assets/scenes/gui.tscn"
-
 const check_interval : float = 0.1
 var last_check_time : float
 var is_loading : bool = false
@@ -35,5 +33,5 @@ func load_threaded(path : String):
 	set_process(true)
 
 ## Standard blocking, load
-func load_direct(path : String):
+func load_direct(path : String): 
 	get_tree().root.add_child(ResourceLoader.load(path).instantiate())

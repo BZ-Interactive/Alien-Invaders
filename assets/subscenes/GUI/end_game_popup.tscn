@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cbm1506nmwci4"]
+
+[ext_resource type="Script" uid="uid://duswwe63e5oyu" path="res://assets/scripts/GUI/end_game_popup.gd" id="1_le52r"]
+
+[node name="End Game Popup" type="CenterContainer" unique_id=470093758 node_paths=PackedStringArray("panel", "won_label", "lost_label")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_le52r")
+panel = NodePath("PanelContainer")
+won_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Won Label")
+lost_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Lost Label")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1613831192]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=564507664]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1234185060]
+layout_mode = 2
+
+[node name="Won Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=566178323]
+layout_mode = 2
+text = "Level Won!"
+horizontal_alignment = 1
+
+[node name="Lost Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=836123421]
+layout_mode = 2
+text = "Level Failed!"
+horizontal_alignment = 1
+
+[node name="Return Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=699993765]
+self_modulate = Color(4.415934, 4.415934, 4.415934, 1)
+layout_mode = 2
+text = "Return to Menu"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Return Button" to="." method="on_return_button"]

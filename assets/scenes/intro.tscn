@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cm1gp7yrkswx4" path="res://assets/sprites/logo/BZ-Interactive-Logo.png" id="1_e2c8y"]
 [ext_resource type="Script" uid="uid://cenw2qj6d43ft" path="res://assets/scripts/GUI/intro.gd" id="1_w7g36"]
-[ext_resource type="PackedScene" uid="uid://4g85x5wnrk2r" path="res://assets/scenes/gui.tscn" id="2_5dkqn"]
+[ext_resource type="PackedScene" uid="uid://4g85x5wnrk2r" path="res://assets/scenes/main_menu.tscn" id="2_5dkqn"]
 [ext_resource type="Texture2D" uid="uid://d3uvvm2gynid1" path="res://assets/sprites/square.svg" id="2_y745p"]
 [ext_resource type="Texture2D" uid="uid://b5phimb7yaxdn" path="res://assets/icon/alien-invaders-icon.png" id="3_y745p"]
 
