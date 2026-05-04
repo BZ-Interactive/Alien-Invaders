@@ -5,7 +5,6 @@ extends Control
 @export var fighter : Sprite2D
 @export var invader : Sprite2D
 
-var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var fighter_speed : float = 200
 var invader_speed : float = 200
 var player_speed : float = 200
@@ -28,15 +27,15 @@ func move_player_up(delta: float):
 
 func on_player_left_screen():
 	#50, 900, the limits are the limits of the parent control
-	player.position = Vector2(rng.randi_range(50, 900), 1000)
-	player_speed = rng.randf_range(100, 600)
+	player.position = Vector2(randi_range(50, 900), 1000)
+	player_speed = randf_range(100, 600)
 
 func on_fighter_left_screen():
 	#50, 900, the limits are the limits of the parent control
-	fighter.position = Vector2(rng.randi_range(50, 900), 0)
-	fighter_speed = rng.randf_range(100, 400)
+	fighter.position = Vector2(randi_range(50, 900), 0)
+	fighter_speed = randf_range(100, 400)
 	
 func on_invader_left_screen():
 	#50, 900, the limits are the limits of the parent control
-	invader.position = Vector2(rng.randi_range(50, 900), 0)
-	invader_speed = rng.randf_range(100, 400)
+	invader.position = Vector2(randi_range(50, 900), 0)
+	invader_speed = randf_range(100, 400)

@@ -15,4 +15,7 @@ func on_infinte_pressed():
 	self.visible = false
 
 func on_exit_pressed():
-	get_tree().quit()
+	if OS.has_feature("web"):
+		JavaScriptBridge.eval("window.location.reload();")
+	else: # desktop, mobile etc
+		get_tree().quit()

@@ -5,12 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://dpycr455cjx0w" path="res://assets/subscenes/player_ship.tscn" id="2_y7uqj"]
 [ext_resource type="PackedScene" uid="uid://dmpq4fdurtoru" path="res://assets/subscenes/enemies_scene.tscn" id="3_ftnf1"]
 [ext_resource type="PackedScene" uid="uid://bikcucdv8b4a8" path="res://assets/subscenes/Powerup/powerup_manager.tscn" id="4_y7idx"]
-[ext_resource type="PackedScene" uid="uid://cbm1506nmwci4" path="res://assets/subscenes/GUI/end_game_popup.tscn" id="6_ftnf1"]
+[ext_resource type="PackedScene" uid="uid://cfn8g7tepywge" path="res://assets/subscenes/GUI/hud.tscn" id="7_y7idx"]
 
-[node name="Finite Level Root" type="Node2D" unique_id=1883818601 node_paths=PackedStringArray("projectile_parent", "game_end_popup")]
+[node name="Finite Level Root" type="Node2D" unique_id=1883818601 node_paths=PackedStringArray("projectile_parent")]
 script = ExtResource("1_y7uqj")
 projectile_parent = NodePath("Projectile Parent")
-game_end_popup = NodePath("End Game Popup")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1257399860]
 
@@ -29,5 +28,4 @@ number_of_enemies = 29
 
 [node name="Projectile Parent" type="Node2D" parent="." unique_id=327337528]
 
-[node name="End Game Popup" parent="." unique_id=470093758 instance=ExtResource("6_ftnf1")]
-visible = false
+[node name="HUD" parent="." unique_id=624296192 instance=ExtResource("7_y7idx")]

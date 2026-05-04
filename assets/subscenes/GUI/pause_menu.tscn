@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://cdfcepstupj7e"]
+
+[node name="Pause Menu CenterContainer" type="CenterContainer" unique_id=2051915022]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pause Menu PanelContainer" type="PanelContainer" parent="." unique_id=1813610197]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+
+[node name="Pause Menu MarginContainer" type="MarginContainer" parent="Pause Menu PanelContainer" unique_id=13064800]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Pause Menu VBoxContainer" type="VBoxContainer" parent="Pause Menu PanelContainer/Pause Menu MarginContainer" unique_id=1509807415]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title PanelContainer" type="PanelContainer" parent="Pause Menu PanelContainer/Pause Menu MarginContainer/Pause Menu VBoxContainer" unique_id=1883330681]
+editor_description = "Was g"
+self_modulate = Color(1, 1, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Title MarginContainer" type="MarginContainer" parent="Pause Menu PanelContainer/Pause Menu MarginContainer/Pause Menu VBoxContainer/Title PanelContainer" unique_id=104565843]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Paused Label" type="Label" parent="Pause Menu PanelContainer/Pause Menu MarginContainer/Pause Menu VBoxContainer/Title PanelContainer/Title MarginContainer" unique_id=1753705066]
+layout_mode = 2
+text = "Pause Menu"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Pause Menu PanelContainer/Pause Menu MarginContainer/Pause Menu VBoxContainer" unique_id=1915706902]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Resume Button" type="Button" parent="Pause Menu PanelContainer/Pause Menu MarginContainer/Pause Menu VBoxContainer" unique_id=140452416]
+modulate = Color(0, 0.93042636, 0.21240643, 1)
+layout_mode = 2
+text = "Resume Game"
+
+[node name="Return Button" type="Button" parent="Pause Menu PanelContainer/Pause Menu MarginContainer/Pause Menu VBoxContainer" unique_id=1563681363]
+modulate = Color(0.97454256, 0, 0.08160355, 1)
+layout_mode = 2
+text = "Return to Main Menu"

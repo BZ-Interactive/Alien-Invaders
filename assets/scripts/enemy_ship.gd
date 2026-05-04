@@ -6,7 +6,6 @@ var row_offset : float
 
 @export var shoot_chance : float = 0.5 # has to be between 0.0 and 1.0
 @export var cooldown_timer : Timer # has to be between 0.0 and 1.0
-var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 @export var health : float = 1.0
 
@@ -15,7 +14,7 @@ var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	cooldown_timer.wait_time = rng.randf_range(1, 4)
+	cooldown_timer.wait_time = randf_range(1, 4)
 	cooldown_timer.start()
 	Engeage()
 	
@@ -41,14 +40,14 @@ func is_not_obstructed() -> bool:
 
 # basic rng based coin flip logic
 func will_shoot() -> bool:
-	return rng.randf() <= shoot_chance
+	return randf() <= shoot_chance
 
 func Engeage() -> void:
 	while health > 0:
 		await cooldown_timer.timeout
 		if will_shoot() and is_not_obstructed():
 			shoot()
-			cooldown_timer.wait_time = rng.randf_range(1, 4)
+			cooldown_timer.wait_time = randf_range(1, 4)
 		cooldown_timer.start()
 
 func shoot() -> void:

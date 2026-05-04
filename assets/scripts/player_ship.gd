@@ -43,14 +43,15 @@ func _ready() -> void:
 	powerup_timer.timeout.connect(on_powerup_timeout)
 
 func _input(event: InputEvent) -> void:
-	if not dead and not GameManager.game_ended and event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_up"):
+	if not check_input_blocked() and (event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_up")):
 		shoot()
 
 # physics based movement
 func _physics_process(_delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	if dead or GameManager.game_ended:
+	if check_input_blocked():
+		change_movement_sprite(0.0) # make sprite idle
 		return
 	
 	var direction := Input.get_axis("ui_left", "ui_right")
@@ -135,3 +136,6 @@ func damage(dmg : float) -> void:
 	self.health -= dmg
 	if health <= 0:
 		die()
+
+func check_input_blocked() -> bool:
+	return dead or GameManager.game_ended or GameManager.current_hud.pause_menu.visible
