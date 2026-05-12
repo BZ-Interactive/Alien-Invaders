@@ -1,0 +1,9 @@
+[gd_resource type="Theme" format=3 uid="uid://bmq0wktrxdq55"]
+
+[ext_resource type="FontFile" uid="uid://bdew3t0qghars" path="res://assets/themes/Fonts/ari_w9500/ari-w9500-display.ttf" id="1_n6wn8"]
+[ext_resource type="StyleBox" uid="uid://gbm8hcxnv7mr" path="res://assets/themes/styles/panel_theme.tres" id="6_okger"]
+
+[resource]
+Label/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("1_n6wn8")
+PanelContainer/styles/panel = ExtResource("6_okger")

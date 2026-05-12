@@ -1,0 +1,19 @@
+[gd_resource type="Theme" format=3 uid="uid://ddslcw0el42ri"]
+
+[ext_resource type="FontFile" uid="uid://bdew3t0qghars" path="res://assets/themes/Fonts/ari_w9500/ari-w9500-display.ttf" id="1_tvrs4"]
+[ext_resource type="StyleBox" uid="uid://b820mc3p25xo4" path="res://assets/themes/styles/button_disabled.tres" id="2_nkhdd"]
+[ext_resource type="StyleBox" uid="uid://dvnuffd78ebk7" path="res://assets/themes/styles/button_hover.tres" id="3_1w5dc"]
+[ext_resource type="StyleBox" uid="uid://doa1sx6ggbi2g" path="res://assets/themes/styles/button_normal.tres" id="4_eg7ua"]
+[ext_resource type="StyleBox" uid="uid://dit64451lfbsn" path="res://assets/themes/styles/button_pressed.tres" id="5_81843"]
+[ext_resource type="StyleBox" uid="uid://gbm8hcxnv7mr" path="res://assets/themes/styles/panel_theme.tres" id="6_24axp"]
+
+[resource]
+Button/font_sizes/font_size = 20
+Button/fonts/font = ExtResource("1_tvrs4")
+Button/styles/disabled = ExtResource("2_nkhdd")
+Button/styles/hover = ExtResource("3_1w5dc")
+Button/styles/normal = ExtResource("4_eg7ua")
+Button/styles/pressed = ExtResource("5_81843")
+Label/font_sizes/font_size = 20
+Label/fonts/font = ExtResource("1_tvrs4")
+PanelContainer/styles/panel = ExtResource("6_24axp")

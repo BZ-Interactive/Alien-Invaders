@@ -1,10 +1,7 @@
 [gd_scene format=3 uid="uid://cfn8g7tepywge"]
 
 [ext_resource type="Script" uid="uid://dtpk4x2ije18k" path="res://assets/scripts/GUI/HUD.gd" id="1_b8fh2"]
-[ext_resource type="Texture2D" uid="uid://c33we01rq1rww" path="res://assets/sprites/UI/arrow-key-h.svg.svg" id="1_ki4hs"]
-[ext_resource type="Texture2D" uid="uid://wh2xgmx4afht" path="res://assets/sprites/UI/arrow-key-v.svg" id="2_wo6a4"]
-[ext_resource type="Texture2D" uid="uid://037vde4ecm6d" path="res://assets/sprites/SpaceRage/FX/proton_02.png" id="3_44y83"]
-[ext_resource type="Texture2D" uid="uid://dgwptwmga55eo" path="res://assets/sprites/UI/menu-hmb.svg" id="4_pefby"]
+[ext_resource type="PackedScene" uid="uid://chix42klet5if" path="res://assets/subscenes/GUI/top_panel.tscn" id="2_pefby"]
 [ext_resource type="PackedScene" uid="uid://cdfcepstupj7e" path="res://assets/subscenes/GUI/pause_menu.tscn" id="6_l2yxg"]
 [ext_resource type="PackedScene" uid="uid://cbm1506nmwci4" path="res://assets/subscenes/GUI/end_game_popup.tscn" id="7_4xnn8"]
 
@@ -13,125 +10,7 @@ script = ExtResource("1_b8fh2")
 pause_menu = NodePath("Pause Menu CenterContainer")
 game_end_popup = NodePath("End Game Popup")
 
-[node name="Top PanelContainer" type="PanelContainer" parent="." unique_id=879400086]
-anchors_preset = -1
-anchor_right = 0.9990001
-anchor_bottom = 0.056
-offset_right = 0.27990723
-offset_bottom = -0.3199997
-
-[node name="Powerup HBoxContainer" type="HBoxContainer" parent="Top PanelContainer" unique_id=2095445760]
-modulate = Color(1, 1, 1, 0.5019608)
-layout_mode = 2
-
-[node name="Firerate TextureRect" type="TextureRect" parent="Top PanelContainer/Powerup HBoxContainer" unique_id=1599637365]
-modulate = Color(0.7254902, 0.1764706, 0.19607843, 1)
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-texture = ExtResource("3_44y83")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Firerate Label" type="Label" parent="Top PanelContainer/Powerup HBoxContainer" unique_id=1623218869]
-layout_mode = 2
-text = "Firerate"
-
-[node name="Speed TextureRect" type="TextureRect" parent="Top PanelContainer/Powerup HBoxContainer" unique_id=212928004]
-modulate = Color(0.4392157, 1, 0, 1)
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-texture = ExtResource("3_44y83")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Speed Label" type="Label" parent="Top PanelContainer/Powerup HBoxContainer" unique_id=493928705]
-layout_mode = 2
-text = "Speed"
-
-[node name="Shield TextureRect" type="TextureRect" parent="Top PanelContainer/Powerup HBoxContainer" unique_id=692567881]
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-texture = ExtResource("3_44y83")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Shield Label" type="Label" parent="Top PanelContainer/Powerup HBoxContainer" unique_id=1824593707]
-layout_mode = 2
-text = "Shield"
-
-[node name="Controls HBoxContainer" type="HBoxContainer" parent="Top PanelContainer" unique_id=424396824]
-modulate = Color(1, 1, 1, 0.5019608)
-layout_mode = 2
-alignment = 1
-
-[node name="spacer" type="Control" parent="Top PanelContainer/Controls HBoxContainer" unique_id=1810612730]
-visible = false
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-
-[node name="Right TextureRect" type="TextureRect" parent="Top PanelContainer/Controls HBoxContainer" unique_id=1364065112]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-texture = ExtResource("1_ki4hs")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Right Label" type="Label" parent="Top PanelContainer/Controls HBoxContainer" unique_id=1547432016]
-layout_mode = 2
-text = "Move Right"
-
-[node name="spacer2" type="Control" parent="Top PanelContainer/Controls HBoxContainer" unique_id=1092580604]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-
-[node name="Shoot TextureRect" type="TextureRect" parent="Top PanelContainer/Controls HBoxContainer" unique_id=868156357]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-texture = ExtResource("2_wo6a4")
-expand_mode = 1
-stretch_mode = 5
-flip_v = true
-
-[node name="Shoot Label" type="Label" parent="Top PanelContainer/Controls HBoxContainer" unique_id=49897553]
-layout_mode = 2
-text = "Shoot"
-
-[node name="spacer3" type="Control" parent="Top PanelContainer/Controls HBoxContainer" unique_id=609158297]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-
-[node name="Left TextureRect" type="TextureRect" parent="Top PanelContainer/Controls HBoxContainer" unique_id=1443129822]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-texture = ExtResource("1_ki4hs")
-expand_mode = 1
-stretch_mode = 5
-flip_h = true
-
-[node name="Left Label" type="Label" parent="Top PanelContainer/Controls HBoxContainer" unique_id=381172916]
-layout_mode = 2
-text = "Move Left"
-
-[node name="spacer end" type="Control" parent="Top PanelContainer/Controls HBoxContainer" unique_id=1967900083]
-visible = false
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-
-[node name="Menu HBoxContainer" type="HBoxContainer" parent="Top PanelContainer" unique_id=640839300]
-modulate = Color(1, 1, 1, 0.5019608)
-layout_mode = 2
-alignment = 2
-
-[node name="Firerate Label" type="Label" parent="Top PanelContainer/Menu HBoxContainer" unique_id=2112116248]
-layout_mode = 2
-text = "ESC"
-
-[node name="Firerate TextureRect" type="TextureRect" parent="Top PanelContainer/Menu HBoxContainer" unique_id=1076207554]
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-texture = ExtResource("4_pefby")
-expand_mode = 1
-stretch_mode = 5
+[node name="Top PanelContainer" parent="." unique_id=534718448 instance=ExtResource("2_pefby")]
 
 [node name="Pause Menu CenterContainer" parent="." unique_id=2051915022 instance=ExtResource("6_l2yxg")]
 

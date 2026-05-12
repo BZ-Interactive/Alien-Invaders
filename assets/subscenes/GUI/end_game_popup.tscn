@@ -1,17 +1,45 @@
 [gd_scene format=3 uid="uid://cbm1506nmwci4"]
 
 [ext_resource type="Script" uid="uid://duswwe63e5oyu" path="res://assets/scripts/GUI/end_game_popup.gd" id="1_le52r"]
+[ext_resource type="Theme" uid="uid://dpa1515aljc8i" path="res://assets/themes/HUD_theme.tres" id="1_q4el1"]
 
-[node name="End Game Popup" type="CenterContainer" unique_id=470093758 node_paths=PackedStringArray("panel", "won_label", "lost_label")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2erw"]
+bg_color = Color(0, 0.5019608, 0, 0.5019608)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 0.5019608)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4el1"]
+bg_color = Color(1, 0.078431375, 0.078431375, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 0.5019608)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+anti_aliasing = false
+
+[node name="End Game Popup" type="CenterContainer" unique_id=470093758 node_paths=PackedStringArray("panel")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_q4el1")
 script = ExtResource("1_le52r")
 panel = NodePath("PanelContainer")
-won_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Won Label")
-lost_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Lost Label")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1613831192]
 layout_mode = 2
@@ -26,18 +54,36 @@ theme_override_constants/margin_bottom = 30
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1234185060]
 layout_mode = 2
 
-[node name="Won Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=566178323]
+[node name="Won PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=180656342]
+custom_minimum_size = Vector2(170, 45)
 layout_mode = 2
-text = "Level Won!"
-horizontal_alignment = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_j2erw")
 
-[node name="Lost Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=836123421]
+[node name="Won Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Won PanelContainer" unique_id=566178323]
 layout_mode = 2
-text = "Level Failed!"
+theme_override_font_sizes/font_size = 20
+text = " Level Won! "
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lost PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2139230988]
+custom_minimum_size = Vector2(175, 45)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q4el1")
+
+[node name="Lost Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Lost PanelContainer" unique_id=836123421]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = " Level Failed! "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1987493814]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
 
 [node name="Return Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=699993765]
-self_modulate = Color(4.415934, 4.415934, 4.415934, 1)
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "Return to Menu"
 

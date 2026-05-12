@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://chix42klet5if"]
+
+[ext_resource type="Texture2D" uid="uid://037vde4ecm6d" path="res://assets/sprites/SpaceRage/FX/proton_02.png" id="1_d5mck"]
+[ext_resource type="Theme" uid="uid://bmq0wktrxdq55" path="res://assets/themes/top_panel_theme.tres" id="1_y5lmi"]
+[ext_resource type="Texture2D" uid="uid://c33we01rq1rww" path="res://assets/sprites/UI/arrow-key-h.svg.svg" id="2_y5lmi"]
+[ext_resource type="Texture2D" uid="uid://wh2xgmx4afht" path="res://assets/sprites/UI/arrow-key-v.svg" id="3_tma3g"]
+[ext_resource type="Texture2D" uid="uid://dgwptwmga55eo" path="res://assets/sprites/UI/menu-hmb.svg" id="4_0oxwq"]
+
+[node name="Top PanelContainer" type="PanelContainer" unique_id=534718448]
+anchors_preset = -1
+anchor_right = 0.9990001
+anchor_bottom = 0.056
+offset_right = 0.27990723
+offset_bottom = -0.3199997
+theme = ExtResource("1_y5lmi")
+
+[node name="Powerup HBoxContainer" type="HBoxContainer" parent="." unique_id=1888006517]
+modulate = Color(1, 1, 1, 0.5019608)
+layout_mode = 2
+
+[node name="Firerate TextureRect" type="TextureRect" parent="Powerup HBoxContainer" unique_id=511381250]
+modulate = Color(0.7254902, 0.1764706, 0.19607843, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("1_d5mck")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Firerate Label" type="Label" parent="Powerup HBoxContainer" unique_id=2042358940]
+layout_mode = 2
+text = "Firerate"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Speed TextureRect" type="TextureRect" parent="Powerup HBoxContainer" unique_id=1245283159]
+modulate = Color(0.4392157, 1, 0, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("1_d5mck")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Speed Label" type="Label" parent="Powerup HBoxContainer" unique_id=1514740983]
+layout_mode = 2
+text = "Speed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shield TextureRect" type="TextureRect" parent="Powerup HBoxContainer" unique_id=974273110]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("1_d5mck")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Shield Label" type="Label" parent="Powerup HBoxContainer" unique_id=359381583]
+layout_mode = 2
+text = "Shield"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Controls HBoxContainer" type="HBoxContainer" parent="." unique_id=1840941216]
+modulate = Color(1, 1, 1, 0.5019608)
+layout_mode = 2
+alignment = 1
+
+[node name="spacer" type="Control" parent="Controls HBoxContainer" unique_id=577231247]
+visible = false
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Right TextureRect" type="TextureRect" parent="Controls HBoxContainer" unique_id=1380501500]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+texture = ExtResource("2_y5lmi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Right Label" type="Label" parent="Controls HBoxContainer" unique_id=1738407390]
+layout_mode = 2
+text = "Move Right"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer2" type="Control" parent="Controls HBoxContainer" unique_id=1467941964]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Shoot TextureRect" type="TextureRect" parent="Controls HBoxContainer" unique_id=1228240119]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+texture = ExtResource("3_tma3g")
+expand_mode = 1
+stretch_mode = 5
+flip_v = true
+
+[node name="Shoot Label" type="Label" parent="Controls HBoxContainer" unique_id=613435021]
+layout_mode = 2
+text = "Shoot"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer3" type="Control" parent="Controls HBoxContainer" unique_id=131674100]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Left TextureRect" type="TextureRect" parent="Controls HBoxContainer" unique_id=250605651]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+texture = ExtResource("2_y5lmi")
+expand_mode = 1
+stretch_mode = 5
+flip_h = true
+
+[node name="Left Label" type="Label" parent="Controls HBoxContainer" unique_id=1783883963]
+layout_mode = 2
+text = "Move Left"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer end" type="Control" parent="Controls HBoxContainer" unique_id=1373932194]
+visible = false
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Menu HBoxContainer" type="HBoxContainer" parent="." unique_id=627862984]
+modulate = Color(1, 1, 1, 0.5019608)
+layout_mode = 2
+alignment = 2
+
+[node name="Firerate Label" type="Label" parent="Menu HBoxContainer" unique_id=276638043]
+layout_mode = 2
+text = "ESC"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Firerate TextureRect" type="TextureRect" parent="Menu HBoxContainer" unique_id=915419644]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("4_0oxwq")
+expand_mode = 1
+stretch_mode = 5
