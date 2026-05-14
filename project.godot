@@ -22,6 +22,7 @@ config/icon="uid://b5phimb7yaxdn"
 
 GameManager="*uid://dasnxbbcly48w"
 SceneLoader="*uid://dhyvads54luph"
+ScoreManager="*uid://6qyao0glkh3u"
 
 [display]
 
@@ -32,6 +33,8 @@ window/stretch/mode="canvas_items"
 [global_group]
 
 player=""
+enemy=""
+damageable=""
 
 [input]
 

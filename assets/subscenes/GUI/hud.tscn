@@ -2,13 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dtpk4x2ije18k" path="res://assets/scripts/GUI/HUD.gd" id="1_b8fh2"]
 [ext_resource type="PackedScene" uid="uid://chix42klet5if" path="res://assets/subscenes/GUI/top_panel.tscn" id="2_pefby"]
+[ext_resource type="PackedScene" uid="uid://v88fdh7uj1hc" path="res://assets/subscenes/GUI/time_panel.tscn" id="5_b8fh2"]
 [ext_resource type="PackedScene" uid="uid://cdfcepstupj7e" path="res://assets/subscenes/GUI/pause_menu.tscn" id="6_l2yxg"]
 [ext_resource type="PackedScene" uid="uid://cbm1506nmwci4" path="res://assets/subscenes/GUI/end_game_popup.tscn" id="7_4xnn8"]
 
-[node name="HUD" type="CanvasLayer" unique_id=601876217 node_paths=PackedStringArray("pause_menu", "game_end_popup")]
+[node name="HUD" type="CanvasLayer" unique_id=601876217]
 script = ExtResource("1_b8fh2")
-pause_menu = NodePath("Pause Menu CenterContainer")
-game_end_popup = NodePath("End Game Popup")
 
 [node name="Top PanelContainer" parent="." unique_id=534718448 instance=ExtResource("2_pefby")]
 
@@ -16,6 +15,16 @@ game_end_popup = NodePath("End Game Popup")
 
 [node name="End Game Popup" parent="." unique_id=470093758 instance=ExtResource("7_4xnn8")]
 visible = false
+
+[node name="Time Panel" parent="." unique_id=1126946696 instance=ExtResource("5_b8fh2")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.5
+offset_top = 50.0
+offset_right = 58.5
+offset_bottom = 104.0
+grow_horizontal = 2
 
 [connection signal="pressed" from="Pause Menu CenterContainer/Pause Menu PanelContainer/Pause Menu MarginContainer/Pause Menu VBoxContainer/Resume Button" to="." method="on_resume_button"]
 [connection signal="pressed" from="Pause Menu CenterContainer/Pause Menu PanelContainer/Pause Menu MarginContainer/Pause Menu VBoxContainer/Return Button" to="." method="on_return_button"]

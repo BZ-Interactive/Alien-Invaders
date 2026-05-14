@@ -1,10 +1,12 @@
 extends CanvasLayer
 
-@export var pause_menu : CenterContainer
-@export var game_end_popup : CenterContainer
+@onready var pause_menu : CenterContainer = $"Pause Menu CenterContainer"
+@onready var game_end_popup : CenterContainer = $"End Game Popup"
+
+func _init() -> void:
+	GameManager.current_hud = self
 
 func _ready() -> void:
-	GameManager.current_hud = self
 	pause_menu.visible = false
 	game_end_popup.visible = false
 

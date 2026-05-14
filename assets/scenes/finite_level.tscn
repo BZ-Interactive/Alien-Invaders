@@ -7,9 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bikcucdv8b4a8" path="res://assets/subscenes/Powerup/powerup_manager.tscn" id="4_y7idx"]
 [ext_resource type="PackedScene" uid="uid://cfn8g7tepywge" path="res://assets/subscenes/GUI/hud.tscn" id="7_y7idx"]
 
-[node name="Finite Level Root" type="Node2D" unique_id=1883818601 node_paths=PackedStringArray("projectile_parent")]
+[node name="Finite Level Root" type="Node2D" unique_id=1883818601]
 script = ExtResource("1_y7uqj")
-projectile_parent = NodePath("Projectile Parent")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1257399860]
 
@@ -29,3 +28,6 @@ number_of_enemies = 29
 [node name="Projectile Parent" type="Node2D" parent="." unique_id=327337528]
 
 [node name="HUD" parent="." unique_id=624296192 instance=ExtResource("7_y7idx")]
+
+[node name="Level Timer" type="Timer" parent="." unique_id=1851811685]
+one_shot = true

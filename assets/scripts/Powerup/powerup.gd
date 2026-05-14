@@ -9,7 +9,6 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_PowerUp_body_entered(body : Node2D):
-	if body.is_in_group("player"):
-		if body.has_method("power_up"):
-			body.power_up(power_type, time)
-			queue_free() # Remove the power-up from the scene
+	if body is Player:
+		body.power_up(power_type, time)
+		queue_free() # Remove the power-up from the scene

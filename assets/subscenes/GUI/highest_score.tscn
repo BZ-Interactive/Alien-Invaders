@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://cvewbhvljokqy"]
+
+[ext_resource type="Theme" uid="uid://ddslcw0el42ri" path="res://assets/themes/menu_theme.tres" id="1_4rggt"]
+[ext_resource type="Script" uid="uid://0vsokwx2bst3" path="res://assets/scripts/GUI/highest_score.gd" id="2_rb04s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rb04s"]
+bg_color = Color(0.078431375, 0.078431375, 0.078431375, 0.5882353)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.19607843, 0.39215687, 1, 0.5019608)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+anti_aliasing = false
+
+[node name="Highest Score" type="PanelContainer" unique_id=808504856]
+offset_right = 111.0
+offset_bottom = 50.0
+theme = ExtResource("1_4rggt")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rb04s")
+script = ExtResource("2_rb04s")
+
+[node name="Score VBoxContainer" type="VBoxContainer" parent="." unique_id=1794613803]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="Score VBoxContainer" unique_id=1025291841]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Highest Score Label" type="Label" parent="Score VBoxContainer" unique_id=1511018017]
+layout_mode = 2
+text = " Highest Score: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Points Label" type="Label" parent="Score VBoxContainer" unique_id=1234775983]
+layout_mode = 2
+text = "0000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer2" type="Control" parent="Score VBoxContainer" unique_id=735353805]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2

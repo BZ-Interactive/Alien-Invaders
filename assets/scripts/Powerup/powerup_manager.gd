@@ -1,5 +1,4 @@
-class_name PowerupManager
-extends Node
+class_name PowerupManager extends Node
 static var Instance : PowerupManager
 
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()

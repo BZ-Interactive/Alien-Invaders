@@ -1,7 +1,8 @@
-extends Node2D
+class_name EnemySpawner extends Node2D
 
-@export var enemy_manager : Node2D
-@export var basic_enemy_scene : PackedScene
+@onready var enemy_manager: EnemyManager = $".."
+@export var basic_enemy_scene: PackedScene
+var expected_time: float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,6 +13,10 @@ func spawn_enemies():
 	while spawned_count < enemy_manager.number_of_enemies:
 		spawn_enemy()
 		spawned_count += 1
+	
+	GameManager.current_game_scene.expected_time = expected_time
 
 func spawn_enemy() -> void:
-	enemy_manager.add_enemy(basic_enemy_scene.instantiate())
+	var enemy = basic_enemy_scene.instantiate() as Enemy
+	enemy_manager.add_enemy(enemy)
+	expected_time += enemy.time_addition

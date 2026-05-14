@@ -1,13 +1,13 @@
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
 @export var projectile : PackedScene
 const shooting_direction = Vector2.UP
  # better to use timer as its handled in Input
-@export var fire_cooldown_timer : Timer
+@onready var fire_cooldown_timer : Timer = $"Fire Cooldown Timer"
 var can_fire : bool = false
 
 # powerup variables
-@export var powerup_timer : Timer
+@onready var powerup_timer : Timer = $"Powerup Timer"
 var current_power : String
 var firerate_up : bool = false
 var shield_up : bool = false
@@ -19,11 +19,11 @@ const JUMP_VELOCITY = -400.0
 
 @export var health : float = 3.0
 
-@export var shield_sprite : Sprite2D
+@onready var shield_sprite : Sprite2D = $"Shield Sprite2D"
 
-@export var idle_visual : Sprite2D
-@export var left_visual : Sprite2D
-@export var right_visual : Sprite2D
+@onready var idle_visual : Sprite2D = $"Ship idle Sprite2D"
+@onready var left_visual : Sprite2D = $"Ship Left Sprite2D"
+@onready var right_visual : Sprite2D = $"Ship Right Sprite2D"
 
 @export_group("Sprites")
 @export_subgroup("Standard")

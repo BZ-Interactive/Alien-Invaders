@@ -13,9 +13,8 @@ row_offset = 60.0
 [node name="Enemy Parent" type="Node2D" parent="." unique_id=392287]
 editor_description = "This is the parent node where the enemy ships should be added to"
 
-[node name="Enemy Spawner" type="Node2D" parent="." unique_id=610964148 node_paths=PackedStringArray("enemy_manager")]
+[node name="Enemy Spawner" type="Node2D" parent="." unique_id=610964148]
 script = ExtResource("2_spidc")
-enemy_manager = NodePath("..")
 basic_enemy_scene = ExtResource("3_yg3o2")
 
 [node name="Enemy Markers" type="Node2D" parent="." unique_id=371962290]

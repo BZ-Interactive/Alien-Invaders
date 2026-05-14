@@ -1,15 +1,19 @@
-extends Node2D
+class_name EnemyManager extends Node2D
 
-@export var number_of_enemies : int
+@export var number_of_enemies: int
+@onready var enemy_spawner: EnemySpawner = $"Enemy Spawner"
+# has to be exported as ready call will break it
+@export var enemy_parent: Node2D
 # order via indices: -- 6-4-2-0-1-3-5 --
-@export var enemy_parent : Node2D
-@export var enemy_placements : Array[Marker2D]
-@export var row_offset : float
-var current_count : int
-var row_count : int
+@export var enemy_placements: Array[Marker2D]
+@export var row_offset: float
+var current_count: int
+var row_count: int
+
+func _init() -> void:
+	GameManager.enemy_manager = self
 
 func _ready() -> void:
-	GameManager.enemy_manager = self
 	row_count = 0
 
 func add_enemy(body : CharacterBody2D):

@@ -1,8 +1,8 @@
 extends CenterContainer
 
-@export var org_logo : TextureRect 
-@export var icon_parent : TextureRect
-@export var wait_timer : Timer
+@onready var org_logo : TextureRect = $"Org Logo TextureRect"
+@onready var icon_parent : TextureRect = $"Icon Background TextureRect"
+@onready var wait_timer : Timer = $"Wait Timer"
 @export var fade_time : float = 1.25
 
 @export var gui_scene : PackedScene

@@ -31,7 +31,21 @@ corner_radius_bottom_left = 4
 corner_detail = 1
 anti_aliasing = false
 
-[node name="End Game Popup" type="CenterContainer" unique_id=470093758 node_paths=PackedStringArray("panel")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m3bcg"]
+bg_color = Color(0.862199, 0.6578102, 0, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 0.5019608)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+anti_aliasing = false
+
+[node name="End Game Popup" type="CenterContainer" unique_id=470093758]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -39,7 +53,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_q4el1")
 script = ExtResource("1_le52r")
-panel = NodePath("PanelContainer")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1613831192]
 layout_mode = 2
@@ -77,6 +90,87 @@ theme_override_font_sizes/font_size = 20
 text = " Level Failed! "
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="spacer2" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=382158254]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Score PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=422453027]
+custom_minimum_size = Vector2(175, 45)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m3bcg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer" unique_id=1534784958]
+layout_mode = 2
+
+[node name="spacer" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer" unique_id=1214253130]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Total Score Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer" unique_id=445849634]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "XXXXXXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Enemy HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer" unique_id=1742218431]
+layout_mode = 2
+alignment = 1
+
+[node name="Enemy Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer/Enemy HBoxContainer" unique_id=1674746456]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Enemies:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Enemy Points Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer/Enemy HBoxContainer" unique_id=103485870]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "XXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Survived HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer" unique_id=174231506]
+layout_mode = 2
+alignment = 1
+
+[node name="Survived Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer/Survived HBoxContainer" unique_id=1562827808]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Survived:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Survived Points Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer/Survived HBoxContainer" unique_id=482905962]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "XXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer" unique_id=479598871]
+layout_mode = 2
+alignment = 1
+
+[node name="Time Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer/Time HBoxContainer" unique_id=2098112602]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Time Bonus:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time Points Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer/Time HBoxContainer" unique_id=45337690]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "XXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer2" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer" unique_id=1452317188]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
 
 [node name="spacer" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1987493814]
 custom_minimum_size = Vector2(0, 25)

@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d3uvvm2gynid1" path="res://assets/sprites/square.svg" id="2_y745p"]
 [ext_resource type="Texture2D" uid="uid://b5phimb7yaxdn" path="res://assets/icon/alien-invaders-icon.png" id="3_y745p"]
 
-[node name="Intro" type="CenterContainer" unique_id=1570683651 node_paths=PackedStringArray("org_logo", "icon_parent", "wait_timer")]
+[node name="Intro" type="CenterContainer" unique_id=1570683651]
 z_index = 1000
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,9 +14,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w7g36")
-org_logo = NodePath("Org Logo TextureRect")
-icon_parent = NodePath("Icon Background TextureRect")
-wait_timer = NodePath("Wait Timer")
 gui_scene = ExtResource("2_5dkqn")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1789218069]

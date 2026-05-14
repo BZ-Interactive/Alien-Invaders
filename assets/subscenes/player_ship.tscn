@@ -13,15 +13,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_p71o1"]
 radius = 30.0
 
-[node name="Player Ship" type="CharacterBody2D" unique_id=1134166323 node_paths=PackedStringArray("fire_cooldown_timer", "powerup_timer", "shield_sprite", "idle_visual", "left_visual", "right_visual") groups=["player"]]
+[node name="Player Ship" type="CharacterBody2D" unique_id=1134166323 groups=["damageable", "player"]]
 script = ExtResource("1_7wvya")
 projectile = ExtResource("2_bpkrg")
-fire_cooldown_timer = NodePath("Fire Cooldown Timer")
-powerup_timer = NodePath("Powerup Timer")
-shield_sprite = NodePath("Shield Sprite2D")
-idle_visual = NodePath("Ship idle Sprite2D")
-left_visual = NodePath("Ship Left Sprite2D")
-right_visual = NodePath("Ship Right Sprite2D")
 idle_standard = ExtResource("1_rx2q0")
 left_standard = ExtResource("4_p71o1")
 right_standard = ExtResource("5_prim7")

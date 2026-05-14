@@ -18,7 +18,7 @@ func shoot(dir : Vector2, spd : float = 250):
 	shot = true
 
 func _on_body_entered(body: Node) -> void:
-	if body.has_method("damage"):
+	if body.is_in_group("damageable"):
 		body.damage(damage);
 		self.queue_free()
 
