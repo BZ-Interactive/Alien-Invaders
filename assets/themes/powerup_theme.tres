@@ -1,0 +1,18 @@
+[gd_resource type="Theme" format=3 uid="uid://endmvgrke644"]
+
+[ext_resource type="FontFile" uid="uid://bdew3t0qghars" path="res://assets/themes/Fonts/ari_w9500/ari-w9500-display.ttf" id="1_blig3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkae6"]
+bg_color = Color(0, 0, 0, 0.5019608)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blig3"]
+bg_color = Color(0.4745098, 0.7764706, 1, 1)
+
+[resource]
+ProgressBar/colors/font_color = Color(0.95, 0.95, 0.95, 1)
+ProgressBar/colors/font_outline_color = Color(0, 0, 0, 1)
+ProgressBar/constants/outline_size = 4
+ProgressBar/font_sizes/font_size = 10
+ProgressBar/fonts/font = ExtResource("1_blig3")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_fkae6")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_blig3")

@@ -108,7 +108,7 @@ text = "Exit
 "
 
 [node name="Spacer" type="Control" parent="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer" unique_id=404601337]
-custom_minimum_size = Vector2(0, 10)
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="Org Button2" type="Button" parent="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer" unique_id=1254074928]

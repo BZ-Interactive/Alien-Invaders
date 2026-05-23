@@ -3,12 +3,17 @@
 [ext_resource type="Script" uid="uid://cu8hm1040ykud" path="res://assets/scripts/player_ship.gd" id="1_7wvya"]
 [ext_resource type="Texture2D" uid="uid://b4erfp2w1mcab" path="res://assets/sprites/SpaceRage/Player/player_b_m.png" id="1_rx2q0"]
 [ext_resource type="PackedScene" uid="uid://obo7yr6tges0" path="res://assets/subscenes/projectile.tscn" id="2_bpkrg"]
+[ext_resource type="StyleBox" uid="uid://bnpohb5b056ni" path="res://assets/themes/styles/powerup/speed_bar_style.tres" id="3_xskac"]
 [ext_resource type="Texture2D" uid="uid://bsi3xy7p8ibv3" path="res://assets/sprites/SpaceRage/Player/player_b_l1.png" id="4_p71o1"]
+[ext_resource type="StyleBox" uid="uid://b2oqdrjpvyl10" path="res://assets/themes/styles/powerup/shield_bar_style.tres" id="4_vqjig"]
+[ext_resource type="StyleBox" uid="uid://cxdltf5ilqw0c" path="res://assets/themes/styles/powerup/firerate_bar_style.tres" id="5_b8drq"]
 [ext_resource type="Texture2D" uid="uid://sdy8uryeaxfa" path="res://assets/sprites/SpaceRage/Player/player_b_r1.png" id="5_prim7"]
 [ext_resource type="Texture2D" uid="uid://dscj3xg8apy3p" path="res://assets/sprites/SpaceRage/Player/player_r_m.png" id="6_lsrpr"]
 [ext_resource type="Texture2D" uid="uid://dopq7ns6jebld" path="res://assets/sprites/SpaceRage/Player/player_r_l1.png" id="7_1hsqt"]
 [ext_resource type="Texture2D" uid="uid://dvardjct3v1g7" path="res://assets/sprites/SpaceRage/Player/player_r_r1.png" id="8_c2s3c"]
 [ext_resource type="Texture2D" uid="uid://dokc1xrj0faun" path="res://assets/sprites/SpaceRage/FX/proton_01.png" id="9_1hsqt"]
+[ext_resource type="Theme" uid="uid://cuv1xqnxiffs5" path="res://assets/themes/health_bar_theme.tres" id="10_c2s3c"]
+[ext_resource type="Theme" uid="uid://endmvgrke644" path="res://assets/themes/powerup_theme.tres" id="11_7ccbr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p71o1"]
 radius = 30.0
@@ -16,6 +21,9 @@ radius = 30.0
 [node name="Player Ship" type="CharacterBody2D" unique_id=1134166323 groups=["damageable", "player"]]
 script = ExtResource("1_7wvya")
 projectile = ExtResource("2_bpkrg")
+speed_style = ExtResource("3_xskac")
+shield_style = ExtResource("4_vqjig")
+firerate_style = ExtResource("5_b8drq")
 idle_standard = ExtResource("1_rx2q0")
 left_standard = ExtResource("4_p71o1")
 right_standard = ExtResource("5_prim7")
@@ -54,3 +62,32 @@ visible = false
 modulate = Color(1, 1, 1, 0.5019608)
 scale = Vector2(10, 10)
 texture = ExtResource("9_1hsqt")
+
+[node name="Health Bar" type="ProgressBar" parent="." unique_id=204158140]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 32.0
+offset_right = 25.0
+offset_bottom = 39.5
+grow_horizontal = 2
+theme = ExtResource("10_c2s3c")
+max_value = 3.0
+step = 1.0
+value = 2.0
+show_percentage = false
+
+[node name="Powerup Bar" type="ProgressBar" parent="." unique_id=1764376335]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 32.5
+offset_top = 30.0
+offset_right = 92.500046
+offset_bottom = 42.5
+grow_horizontal = 2
+rotation = 4.712389
+theme = ExtResource("11_7ccbr")
+step = 0.1
+value = 75.2
