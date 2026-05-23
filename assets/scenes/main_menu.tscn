@@ -68,7 +68,7 @@ split_offset = 450
 
 [node name="Buttons VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/Left Side VSplitContainer" unique_id=7119979]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 20
 
 [node name="Spacer 1" type="Control" parent="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer" unique_id=1478409526]
 custom_minimum_size = Vector2(0, 10)
@@ -106,6 +106,26 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Exit
 "
+
+[node name="Spacer" type="Control" parent="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer" unique_id=404601337]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Org Button2" type="Button" parent="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer" unique_id=1254074928]
+self_modulate = Color(1, 1, 0.29411766, 1)
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = " HQ "
+
+[node name="Itch Button3" type="Button" parent="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer" unique_id=2070455263]
+self_modulate = Color(0.98039216, 0.36078432, 0.36078432, 1)
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = " itch.io "
 
 [node name="Highest Score" parent="PanelContainer/MarginContainer/Left Side VSplitContainer" unique_id=808504856 instance=ExtResource("7_uek13")]
 layout_mode = 2
@@ -145,6 +165,8 @@ texture = ExtResource("8_mbm7v")
 [connection signal="pressed" from="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer/Play Button" to="." method="on_play_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer/Infinite Button" to="." method="on_infinte_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer/Exit Button" to="." method="on_exit_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer/Org Button2" to="." method="on_org_button"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer/Itch Button3" to="." method="on_itch_button"]
 [connection signal="screen_exited" from="Right Decor/Player TextureRect/Player VisibleOnScreenNotifier2D" to="Right Decor" method="on_player_left_screen"]
 [connection signal="screen_exited" from="Right Decor/Fighter TextureRect/Fighter VisibleOnScreenNotifier2D" to="Right Decor" method="on_fighter_left_screen"]
 [connection signal="screen_exited" from="Right Decor/Invader TextureRect/Invader VisibleOnScreenNotifier2D" to="Right Decor" method="on_invader_left_screen"]

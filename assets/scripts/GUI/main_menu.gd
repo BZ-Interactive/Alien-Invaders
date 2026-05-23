@@ -1,7 +1,10 @@
 class_name MainMenu extends Control
 
-@export var game_scene : PackedScene
-@export var infinite_scene : PackedScene
+@export var game_scene: PackedScene
+@export var infinite_scene: PackedScene
+
+var org_url: String = "https://github.com/BZ-Interactive"
+var itch_url: String = "https://bz-interactive.itch.io/"
 
 @onready var highest_score: HighestScoreGUI = $"PanelContainer/MarginContainer/Left Side VSplitContainer/Highest Score"
 
@@ -27,3 +30,9 @@ func on_exit_pressed():
 		JavaScriptBridge.eval("window.location.reload();")
 	else: # desktop, mobile etc.
 		get_tree().quit()
+
+func on_org_button():
+	OS.shell_open(org_url)
+
+func on_itch_button():
+	OS.shell_open(itch_url)
