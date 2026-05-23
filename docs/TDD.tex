@@ -2,11 +2,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{enumitem}
 \usepackage{geometry}
+\geometry{margin=0.75in}
 \usepackage{datetime2}
 
 \DTMnewdatestyle{CustomDateStyle}{%
@@ -19,11 +20,21 @@
 }
 \DTMsetdatestyle{CustomDateStyle}
 
-\title{\textbf{Test-Driven Development Specification}\\\Large Alien Invaders Game}
-\author{\textbf{Barkın Zorlu}}
+\title{\textbf{Alien Invaders}\\ Technical Design Document}
+\author{\textbf{BZ-Interactive} \\ Barkın Zorlu}
 \date{\DTMtoday}
 
 \begin{document}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=6.5cm]{../assets/sprites/logo/BZ-Interactive-Logo.png}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=6.5cm]{../assets/icon/alien-invaders-icon-512.png}
+\end{figure}
 
 \maketitle
 
@@ -39,246 +50,605 @@
 \hline
 \textbf{Version} & \textbf{Date} & \textbf{Author} & \textbf{Description} \\
 \hline
-1.0 & \date{27.04.2026} & BZ-Interactive & Complete TDD Creation \\
+1.0 & 27.04.2026 & Barkın Zorlu & Complete TDD Creation \\
 \hline
- & & & \\
+2.0 & 23.05.2026 & Barkın Zorlu & Major Update - GUI, Score System, Scene Loading \\
 \hline
- & & & \\
+3.0 & 23.05.2026 & Barkın Zorlu & Redo first page \\
 \hline
- & & & \\
+3.1 & 23.05.2026 & Barkın Zorlu & Added powerup delete system and overall edits \\
 \hline
 \end{tabular}
 \end{table}
+
+\subsection*{Organization Links}
+\begin{itemize}
+    \item \href{https://github.com/BZ-Interactive}{BZ Interactive - Github}
+    \item \href{https://bz-interactive.itch.io/}{BZ Interactive - itch.io}
+\end{itemize}
+
+\newpage
+
+\tableofcontents
 
 \newpage
 
 \section{Introduction}
-This document outlines the test-driven development (TDD) approach for the Alien Invaders game implemented in Godot 4.x. The game is a Space Invaders-style shooter with power-ups, enemy AI, and player controls.
+This document provides a comprehensive Technical Design Document for the Alien Invaders game implemented in Godot 4.x. The game is a Space Invaders-style 2D shooter featuring player-controlled spaceship mechanics, dynamic enemy AI with obstruction detection, power-up systems, scoring mechanics, and GUI elements. The architecture is built on singleton manager patterns for centralized state management and scene orchestration.
 
-\section{Game Components Under Test}
+\section{System Architecture and Design}
 
-\subsection{1. Player Ship (\texttt{player\_ship.gd})}
-The player controls a spaceship that can move horizontally and shoot projectiles.
+\subsection{Architecture Overview}
 
-\begin{table}[h]
-\centering
-\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
-\hline
-\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
-\hline
-P1 & Move Left & Verify player moves left when left input is pressed \\
-\hline
-P2 & Move Right & Verify player moves right when right input is pressed \\
-\hline
-P3 & Boundary Clamp & Verify player cannot move beyond screen boundaries \\
-\hline
-P4 & Shoot Projectile & Verify player can fire projectiles with cooldown \\
-\hline
-P5 & Fire Rate Power-up & Verify firerate power-up reduces cooldown time \\
-\hline
-P6 & Speed Power-up & Verify speed power-up increases movement speed (2x) \\
-\hline
-P7 & Shield Power-up & Verify shield power-up grants damage immunity \\
-\hline
-P8 & Health Damage & Verify player takes damage when hit (shield inactive) \\
-\hline
-P9 & Death Condition & Verify player dies when health reaches 0 \\
-\hline
-P10 & Power-up Timer Expiry & Verify power-ups expire after specified duration \\
-\hline
-\end{tabular}
-\end{table}
+Alien Invaders uses a hierarchical state management architecture centered around a GameManager singleton that coordinates all game systems:
 
-\subsection{2. Enemy Ship (\texttt{enemy\_ship.gd})}
-Aliens that move, shoot at the player, and may drop power-ups.
+\begin{itemize}
+    \item \textbf{GameManager}: Central orchestrator managing game state, scene references, and system coordination
+    \item \textbf{Player System}: CharacterBody2D-based player ship with movement, combat, power-ups, and health
+    \item \textbf{Enemy System}: CharacterBody2D-based enemy ships with async AI shooting loops and obstruction detection
+    \item \textbf{Score Manager}: Global singleton tracking accumulation, bonuses, and high score
+    \item \textbf{Power-up System}: Manager and individual power-ups with collision detection and effect application
+    \item \textbf{Scene Loader}: Backend system supporting both direct and threaded scene loading
+    \item \textbf{GUI System}: Multi-layer UI including HUD, timers, end-game popups, and menus
+    \item \textbf{Intro Splash}: Animated intro sequence with logo and icon fade transitions, skippable via input
+    \item \textbf{Level Manager}: Scene-based level state tracking and timer management
+\end{itemize}
 
-\begin{table}[h]
-\centering
-\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
-\hline
-\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
-\hline
-E1 & Shooting Logic & Verify enemy fires based on random chance (shoot\_chance) \\
-\hline
-E2 & Cooldown Timer & Verify enemy respects random cooldown between shots (1-4s) \\
-\hline
-E3 & Obstruction Check & Verify enemy only shoots when path to player is clear \\
-\hline
-E4 & Health Damage & Verify enemy takes damage from player projectiles \\
-\hline
-E5 & Death Condition & Verify enemy is removed when health reaches 0 \\
-\hline
-E6 & Power-up Drop & Verify power-up drops with configured probability (10\%) \\
-\hline
-E7 & Row Offset Raycast & Verify raycast uses configured row\_offset distance \\
-\hline
-\end{tabular}
-\end{table}
+\subsection{Core Design Patterns}
 
-\subsection{3. Projectile (\texttt{projectile.gd})}
-Projectiles fired by player and enemies.
+\textbf{Singleton Manager Pattern:}
+All manager systems (GameManager, ScoreManager, PowerupManager, SceneLoader) are implemented as global autoloads, providing centralized access throughout the game.
 
-\begin{table}[h]
-\centering
-\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
-\hline
-\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
-\hline
-PR1 & Direction Setting & Verify projectile moves in specified direction \\
-\hline
-PR2 & Speed Config & Verify projectile respects speed parameter (default 250) \\
-\hline
-PR3 & Rotation & Verify projectile rotates to face direction (90° offset) \\
-\hline
-PR4 & Collision Detection & Verify projectile detects collision with bodies \\
-\hline
-PR5 & Damage Application & Verify projectile applies damage to hit body \\
-\hline
-PR6 & Self Cleanup & Verify projectile destroys itself after lifetime expires \\
-\hline
-PR7 & Auto Cleanup & Verify projectile destroys itself on collision \\
-\hline
-\end{tabular}
-\end{table}
+\textbf{Hierarchical State Management:}
+GameManager holds references to all major systems and is responsible for state transitions (game running, paused, won, lost).
 
-\subsection{4. Game Manager (\texttt{game\_manager.gd})}
-Central game state management.
+\textbf{Async Coroutine-Based AI:}
+Enemy shooting behavior implemented via GDScript coroutines (\_Engage()) for clean async loops without frame-by-frame polling.
 
-\begin{table}[h]
-\centering
-\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
-\hline
-\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
-\hline
-G1 & Enemy Count Initialization & Verify initial enemy count is set correctly \\
-\hline
-G2 & Game Won State & Verify game\_ended flag set on victory \\
-\hline
-G3 & Game Lost State & Verify game\_ended flag set on defeat \\
-\hline
-G4 & Enemy Ship Count Decrement & Verify enemy count decrements when enemy dies \\
-\hline
-\end{tabular}
-\end{table}
+\textbf{Physics-Based Movement:}
+Player uses CharacterBody2D.move\_and\_slide() for screen-boundary respecting movement. Projectiles use direct position updates with Area2D collision detection.
 
-\subsection{5. Enemy Manager (\texttt{enemy\_manager.gd})}
-Manages enemy spawning and positioning.
+\section{Game Features and Mechanics}
 
-\begin{table}[h]
-centering
-\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
-\hline
-\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
-\hline
-EM1 & Enemy Placement & Verify enemies are placed at designated markers \\
-\hline
-EM2 & Row Positioning & Verify enemies are offset vertically by row\_offset \\
-\hline
-EM3 & Row Wrapping & Verify placement wraps to new row after filling markers \\
-\hline
-EM4 & Initialize Count & Verify GameManager receives number\_of\_enemies \\
-\hline
-\end{tabular}
-\end{table}
+\subsection{Player Mechanics}
+\begin{itemize}
+    \item Player moves left/right within screen boundaries with sprite feedback (idle/left/right)
+    \item Fires projectiles with configurable cooldown timer (can be bypassed with firerate power-up)
+    \item Three active power-up types: firerate (rapid-fire), speed (2x movement), shield (damage negation)
+    \item Power-ups display with visual progress bar and expire after specified duration
+    \item Health system with 3-point default (can be modified per level)
+    \item Game ends when player health reaches 0
+\end{itemize}
 
-\subsection{6. Enemy Spawner (\texttt{enemy\_spawner.gd})}
-Spawns enemies at game start.
+\subsection{Enemy Mechanics}
+\begin{itemize}
+    \item Enemies positioned in grid layout with configurable row offsets
+    \item Async shooting loop with probability-based (50\% default) and cooldown-based (1-4s) triggering
+    \item Raycast-based obstruction detection prevents shooting through other entities
+    \item Power-ups drop with 10\% probability on enemy death
+    \item Enemy death awards 100 points and decrements enemy counter
+    \item All enemies defeated triggers win condition (finite mode) or next wave (infinite mode)
+\end{itemize}
 
-\begin{table}[h]
-\centering
-\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
-\hline
-\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
-\hline
-ES1 & Spawn Count & Verify correct number of enemies are spawned \\
-\hline
-ES2 & Enemy Instantiation & Verify enemies are added to enemy manager \\
-\hline
-\end{tabular}
-\end{table}
+\subsection{Scoring System}
+\begin{itemize}
+    \item Enemy kills accumulate points (100 per enemy by default)
+    \item Survival bonus (1000) awarded when level completed before timeout
+    \item Time bonus calculated as percentage of expected level time (0-10000 points)
+    \item Highest score tracked in-memory during session
+    \item Score breakdown displayed in end-game popup
+\end{itemize}
 
-\subsection{7. Power-up System (\texttt{powerup.gd}, \texttt{powerup\_manager.gd})}
-Manages power-ups that enhance player abilities.
+\subsection{Game State Management}
+\begin{itemize}
+    \item Pause system with time scale adjustment (0.1 for pause, 1.0 for normal)
+    \item Game end displays popup with score breakdown and survival status
+    \item Level timer counts down and triggers bonus loss visualization
+    \item Win/loss states managed by GameManager with proper cleanup
+    \item Main menu displays current highest score
+\end{itemize}
 
-\begin{table}[h]
-\centering
-\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
-\hline
-\textbf{Test ID} & \textbf{Test Name} & \textbf{Description} \\
-\hline
-PU1 & Drop Movement & Verify power-up falls downward at drop\_speed \\
-\hline
-PU2 & Player Collision & Verify power-up activates on player contact \\
-\hline
-PU3 & Power Application & Verify correct power is applied to player \\
-\hline
-PU4 & Duration & Verify power-up lasts for specified time duration \\
-\hline
-PU5 & Self Cleanup & Verify power-up removes itself after collection \\
-\hline
-PM1 & Random Selection & Verify random power-up is selected from array \\
-\hline
-PM2 & Singleton Instance & Verify PowerupManager is a singleton (Instance) \\
-\hline
-\end{tabular}
-\end{table}
+\section{Implementation Details}
 
-\section{Test Implementation Guidelines}
+This section provides detailed technical documentation of each major game system, including their responsibilities, internal state, and interactions with other systems.
 
-\subsection{Godot Testing Framework}
-Tests should be implemented using Godot's built-in testing framework:
+\subsection{Player Ship System}
 
-\begin{lstlisting}[language=Python] %GDScript is pyhton like so good enough
-extends GutTest
+\subsection{A. Constants and Configuration Values}
 
-func test_player_movement():
-    var player = load("res://player_ship.tscn").instantiate()
-    add_child(player)
-    
-    # Simulate input
-    Input.action_press("ui_right")
-    await get_tree().process_frame
-    
-    assert_gt(player.velocity.x, 0, "Player should move right")
-    
-    Input.action_release("ui_right")
-    player.queue_free()
-\end{lstlisting}
+\subsubsection{Player Ship}
+\begin{itemize}
+    \item Default health: 3.0
+    \item Movement speed: 300.0 pixels/second
+    \item Sprite margin: 50 pixels from screen edges
+    \item Fire cooldown: Configurable via Timer node (default 1.0s)
+    \item Speed power-up multiplier: 2.0x
+    \item Shooting direction: Vector2.UP
+    \item Projectile spawn offset: 50 pixels in shooting direction
+\end{itemize}
 
-\section{Test Execution Order}
+\subsubsection{Enemy Ship}
+\begin{itemize}
+    \item Default health: 1.0
+    \item Shoot chance: 0.5 (50\%)
+    \item Cooldown timer range: 1-4 seconds
+    \item Power-up drop probability: 0.1 (10\%)
+    \item Points per enemy: 100
+    \item Time addition per enemy: 2.0 seconds
+    \item Shooting direction: Vector2.DOWN
+    \item Projectile spawn offset: 50 pixels in shooting direction
+    \item Raycast obstruction detection uses row\_offset distance
+\end{itemize}
+
+\subsubsection{Projectile}
+\begin{itemize}
+    \item Default speed: 250 pixels/second
+    \item Damage per projectile: 1.0
+    \item Rotation offset: +90 degrees (deg\_to\_rad)
+    \item Lifetime: Configured via Timer node (self-cleanup)
+    \item Collision layer: Area2D with body\_entered detection
+\end{itemize}
+
+\subsubsection{Power-up}
+\begin{itemize}
+    \item Drop speed: 100 pixels/second
+    \item Default duration: 2.0 seconds (shield power-up uses 5.0 seconds)
+    \item Power types: ``firerate'', ``speed'', ``shield''
+    \item Survival bonus: 1000 points
+    \item Time bonus base: 10000 points
+    \item Time bonus calculation: (time / expected\_time) * time\_bonus (0 to max\_int)
+    \item Out-of-screen cleanup: VisibleOnScreenEnabler2D detects screen exit and frees power-up
+\end{itemize}
+
+\subsubsection{Game State}
+\begin{itemize}
+    \item Slowed time scale: 0.1 (for pause menu and end game)
+    \item Normal time scale: 1.0
+    \item Level timer: Starts with expected\_time calculated from all enemies
+    \item Initial highest score: -1 (no score recorded)
+\end{itemize}
+
+\subsubsection{Enemy Manager Grid}
+\begin{itemize}
+    \item Row offset distance: Configurable (used for raycast and positioning)
+    \item Placement markers: Configurable array (typical: 7 markers for 7 columns)
+    \item Row wrapping: After len(enemy\_placements) enemies, increment row\_count
+\end{itemize}
+
+\subsection{B. Godot Engine Integration}
+
+\begin{itemize}
+    \item Engine version: Godot 4.x
+    \item Primary scripting language: GDScript
+    \item Physics: Built-in Godot physics with Area2D and CharacterBody2D
+    \item Input system: InputMap-based actions (ui\_left, ui\_right, ui\_accept, ui\_up, Menu)
+    \item Rendering: 2D CanvasLayer-based UI system with theme support
+    \item Resource loading: Dual-mode (direct ResourceLoader and threaded queue system)
+    \item Time control: Engine.time\_scale manipulation for pause/slow effects
+    \item Collision detection: Raycast queries and Area2D body signals
+    \item Groups: ``damageable'' for damage-receiving entities
+    \item Singletons: PowerupManager (static Instance), GameManager, ScoreManager, SceneLoader
+\end{itemize}
+
+\subsection{C. Known Game Modes}
+
+\begin{itemize}
+    \item \textbf{Finite Level}: Level with timer-based win condition. Player must defeat all enemies before the timer expires. Level length determined by sum of all enemy time\_addition values plus configurable padding.
+    \item \textbf{Infinite Level}: Fixed enemy wave with no timer-based win condition. Score accumulates indefinitely.
+    \item Both modes share core mechanics (movement, combat, scoring, power-ups) but differ in win conditions and enemy spawning behavior.
+\end{itemize}
+
+\subsection{D. System Architecture and Interactions}
+
+\subsubsection{Game Flow Overview}
+
+The game follows a hierarchical state management pattern with GameManager as the central coordinator:
 
 \begin{enumerate}
-    \item Projectile tests (lowest dependency)
-    \item Power-up tests
-    \item Enemy ship tests
-    \item Player ship tests
-    \item Manager and spawner tests
-    \item Integration tests
+    \item \textbf{Initialization}: Scene loads with EnemyManager spawning enemies via EnemySpawner
+    \item \textbf{Enemy Positioning}: Enemies placed in grid using EnemyManager's row offset calculations
+    \item \textbf{Expected Time Calc}: EnemySpawner accumulates all enemy time\_addition values into Level.expected\_time
+    \item \textbf{Gameplay Loop}: Player moves/shoots, enemies shoot with obstruction detection, powerups apply effects
+    \item \textbf{Damage/Scoring}: Enemy takes damage, calls ScoreManager.add\_points(), then enemy\_manager.decrement\_enemy\_count()
+    \item \textbf{End Conditions}: Win when all enemies dead, lose when player health $\leq$ 0. Timer expiry removes survival bonus.
+    \item \textbf{End Game}: GameManager.game\_won() or game\_lost() triggers UI popup with calculated score
 \end{enumerate}
 
-\section{Success Criteria}
+\subsubsection{Player System Details}
 
-All tests must pass with 100\% coverage on game logic scripts. The game should:
+The Player class is a CharacterBody2D with multiple interconnected systems:
+
+\textbf{Movement System:}
 \begin{itemize}
-    \item Allow player to move within screen boundaries
-    \item Fire projectiles with configurable cooldown
-    \item Apply power-ups correctly with timer expiration
-    \item Enemies shoot and drop power-ups with RNG
-    \item Game state transitions work (win/loss conditions)
-    \item Projectiles collide and deal damage
+    \item Reads input via Input.get\_axis(``ui\_left'', ``ui\_right'') in \_physics\_process()
+    \item Applies velocity = direction * SPEED * speed\_mult
+    \item Uses move\_and\_slide() for physics-based movement
+    \item Clamps position to screen boundaries using viewport rect
+    \item Sprite feedback shows idle/left/right visual based on direction
 \end{itemize}
 
-\section{Appendices}
-
-\subsection{A. Test Data Requirements}
+\textbf{Combat System:}
 \begin{itemize}
-    \item Player starting position: (0, 270)
-    \item Default fire cooldown: 100ms
-    \item Default player health: 3.0
-    \item Default enemy health: 1.0
-    \item Projectile speed: 250
-    \item Power-up drop chance: 10\%
-    \item Enemy shoot chance: 50\%
+    \item Shooting triggered by ui\_accept or ui\_up input in \_input()
+    \item Can fire if can\_fire flag true OR firerate\_up power active
+    \item Projectile instantiated from exported PackedScene
+    \item Projectile spawned at position + shooting\_direction * 50 offset
+    \item Projectile added to GameManager.current\_game\_scene.projectile\_parent
+    \item Fire cooldown timer starts on shoot, can\_fire set to false
+    \item can\_fire becomes true when fire\_cooldown\_timer times out
+    \item Firerate power-up bypass allows rapid-fire without waiting for timer
 \end{itemize}
 
+\textbf{Power-up System:}
+\begin{itemize}
+    \item player.power\_up(power\_type, duration) called when power-up collides
+    \item Resets any active power-up via reset\_powerup()
+    \item Three active power types: ``firerate'', ``speed'', ``shield''
+    \item Firerate: Sets firerate\_up=true, changes sprite textures to powered version
+    \item Speed: Sets speed\_mult=2, modulates player color to GREEN\_YELLOW
+    \item Shield: Sets shield\_up=true, shows shield\_sprite
+    \item Powerup\_bar ProgressBar displays time\_left with colored background
+    \item On powerup\_timer timeout, reset\_powerup() called to clear effects
+    \item Reset restores original sprites, removes color modulation, hides shield
+\end{itemize}
+
+\textbf{Health and Damage:}
+\begin{itemize}
+    \item damage(dmg) called when projectile collides with player
+    \item If shield\_up true, damage is negated (early return)
+    \item Otherwise health -= dmg
+    \item health\_bar.value updated to current health
+    \item When health $\leq$ 0, die() called which:
+    \begin{itemize}
+        \item Calls GameManager.game\_lost()
+        \item Queues player for deletion
+    \end{itemize}
+\end{itemize}
+
+\textbf{Input Blocking:}
+\begin{itemize}
+    \item check\_input\_blocked() evaluated in \_input() and \_physics\_process()
+    \item Returns true if: dead flag set, GameManager.game\_ended true, or pause menu visible
+    \item Prevents input processing during pause or after game ends
+    \item Movement sprite set to idle if input blocked
+\end{itemize}
+
+\subsubsection{Enemy System Details}
+
+The Enemy class is a CharacterBody2D with async shooting loop:
+
+\textbf{Initialization:}
+\begin{itemize}
+    \item Cooldown Timer configured with random wait\_time (1-4 seconds)
+    \item row\_offset assigned by EnemyManager after instantiation
+    \item Position set by EnemyManager via add\_enemy() and modulo placement
+    \item \_Engage() coroutine started in \_ready()
+\end{itemize}
+
+\textbf{Shooting Loop (\_Engage Coroutine):}
+\begin{itemize}
+    \item Infinite while loop: ``while health > 0''
+    \item Await cooldown\_timer.timeout
+    \item If \_will\_shoot() (50\% RNG) AND \_is\_not\_obstructed():
+    \begin{itemize}
+        \item Call \_shoot() to create and fire projectile
+        \item Set new cooldown\_timer.wait\_time to random 1-4 seconds
+    \end{itemize}
+    \item Restart cooldown\_timer
+    \item Loop continues until health $\leq$ 0
+\end{itemize}
+
+\textbf{Obstruction Detection:}
+\begin{itemize}
+    \item \_is\_not\_obstructed() uses DirectSpaceState raycast
+    \item Raycast from enemy position down (shooting\_direction.DOWN)
+    \item Distance = row\_offset (vertical distance to player row)
+    \item Query excludes enemy's own RID to prevent self-detection
+    \item Returns true if result.is\_empty() (no collision)
+    \item Prevents shooting through other enemies or obstacles
+\end{itemize}
+
+\textbf{Damage and Death:}
+\begin{itemize}
+    \item damage(dmg) called by projectile on collision
+    \item health -= dmg
+    \item When health $\leq$ 0, \_die() called:
+    \begin{itemize}
+        \item \_drop\_power\_up(): RNG check with power\_up\_chance (10\%)
+        \begin{itemize}
+            \item If true: PowerupManager.Instance.get\_power\_rand\_up() returns random powerup scene
+            \item Instantiate powerup and add to projectile\_parent
+            \item Set powerup position to enemy position
+        \end{itemize}
+        \item ScoreManager.add\_points(points) adds 100 to score
+        \item GameManager.enemy\_manager.decrement\_enemy\_count()
+        \begin{itemize}
+            \item number\_of\_enemies -= 1
+            \item If $\leq$ 0, call GameManager.game\_won()
+        \end{itemize}
+        \item queue\_free() removes enemy from scene
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Score Manager System Details}
+
+ScoreManager is a global singleton tracking all scoring:
+
+\textbf{Score Accumulation:}
+\begin{itemize}
+    \item current\_score starts at 0 each level
+    \item add\_points(score) called on enemy death from Enemy.\_die()
+    \item Enemy.points = 100 by default (configurable per enemy)
+    \item current\_score accumulated until level end
+\end{itemize}
+
+\textbf{Level End Calculation:}
+\begin{itemize}
+    \item calculate\_level\_score(survived, time, level) called when game ends
+    \item survived parameter: true if all enemies defeated before timer
+    \item time parameter: level\_timer.time\_left remaining time
+    \item Calculates three components:
+    \begin{enumerate}
+        \item enemy\_result = current\_score (accumulated kills)
+        \item survived\_result = survived\_bonus (1000) if survived else 0
+        \item time\_result = clampi((time / level.expected\_time) * time\_bonus, 0, max)
+        \begin{itemize}
+            \item time\_bonus = 10000 base value
+            \item Percentage calculated as: actual\_time / expected\_time
+            \item Result clamped between 0 and Vector3i.MAX value
+            \item If not survived, time\_result = 0
+        \end{itemize}
+    \end{enumerate}
+    \item final\_score = enemy\_result + survived\_result + time\_result
+    \item current\_score incremented by bonuses
+    \item If current\_score > highest\_score:
+    \begin{itemize}
+        \item highest\_score updated
+        \item GameManager.main\_menu.highest\_score.set\_highest\_score() called to update UI
+    \end{itemize}
+\end{itemize}
+
+\textbf{Score Reset:}
+\begin{itemize}
+    \item reset\_current\_score() called after level end popup closes
+    \item current\_score reset to 0 for next level
+    \item highest\_score persists across levels
+\end{itemize}
+
+\textbf{ScoreData Class:}
+\begin{itemize}
+    \item Immutable data class returned by calculate\_level\_score()
+    \item Fields: enemy (kill points), survived (bonus), time (time bonus), total (final)
+    \item Used by EndGamePopup to display score breakdown
+\end{itemize}
+
+\subsubsection{GUI System Details}
+
+\textbf{HUD Layer (HUD.gd):}
+\begin{itemize}
+    \item Canvas layer containing all in-game UI
+    \item Sets GameManager.current\_hud in \_init()
+    \item Manages pause\_menu and game\_end\_popup visibility
+    \item \_input() listens for Menu action to toggle pause
+    \item Pause toggle: 
+    \begin{itemize}
+        \item Toggles pause\_menu.visible
+        \item Calls GameManager.slow\_time\_scale() or normal\_time\_scale()
+        \item Engine.time\_scale changed to 0.1 or 1.0
+    \end{itemize}
+    \item Pause blocked when game\_ended flag true
+\end{itemize}
+
+\textbf{Level Timer Display (level\_timer.gd):}
+\begin{itemize}
+    \item Reads GameManager.current\_game\_scene.level\_timer.time\_left each frame
+    \item Displays in ``\%05.2f'' format (e.g., ``123.45'')
+    \item Color feedback:
+    \begin{itemize}
+        \item WHITE while time\_left $>$ 0 (bonus available)
+        \item RED when time\_left $\leq$ 0 (bonus lost)
+    \end{itemize}
+    \item On timeout (time\_left $\leq$ 0):
+    \begin{itemize}
+        \item lost\_bonus\_label becomes visible
+        \item bonus\_label hidden
+        \item time\_label shows ``00.00''
+    \end{itemize}
+\end{itemize}
+
+\textbf{End Game Popup (end\_game\_popup.gd):}
+\begin{itemize}
+    \item Called via GameManager.game\_won() or game\_lost()
+    \item Shows won\_panel or lost\_panel based on victory
+    \item Calls ScoreManager.calculate\_level\_score():
+    \begin{itemize}
+        \item survived = true if won\_panel visible (player won)
+        \item time = level\_timer.time\_left
+        \item level = current game scene
+    \end{itemize}
+    \item Displays score breakdown:
+    \begin{itemize}
+        \item total\_score\_label = score\_result.total
+        \item enemy\_points = score\_result.enemy
+        \item survived\_points = score\_result.survived
+        \item time\_points = score\_result.time
+    \end{itemize}
+    \item Sets Engine.time\_scale = 0.1 (slow motion effect)
+    \item on\_return\_button() restores time scale and returns to main menu
+    \item Calls ScoreManager.reset\_current\_score() for next level
+\end{itemize}
+
+\textbf{Main Menu (main\_menu.gd):}
+\begin{itemize}
+    \item Sets GameManager.main\_menu in \_init()
+    \item on\_play\_pressed(): SceneLoader.load\_direct(game\_scene)
+    \item on\_infinite\_pressed(): SceneLoader.load\_direct(infinite\_scene)
+    \item Menu hidden (self.visible=false) when game starts
+    \item Displays highest\_score GUI element
+    \item HighestScoreGUI updated via set\_highest\_score() from ScoreManager
+    \item External link buttons: ``HQ'' opens GitHub organization, ``itch.io'' opens Itch.io page
+    \item Decorative right panel (right\_decor.gd): Three animated sprites (Player, Fighter, Invader) moving vertically with random speeds and screen-exit respawn
+    \item Exit button behavior:
+    \begin{itemize}
+        \item Web: text = ``Reset'', calls JavaScriptBridge.eval(``window.location.reload()'')
+        \item Desktop: calls get\_tree().quit()
+    \end{itemize}
+\end{itemize}
+
+\textbf{Top Panel HUD (top\_panel.tscn):}
+\begin{itemize}
+    \item Displays power-up type legends (firerate/speed/shield icons)
+    \item Shows control scheme reference (arrow keys, shoot, ESC menu)
+\end{itemize}
+
+\subsubsection{GameManager Orchestration}
+
+GameManager is the central state hub coordinating all systems:
+
+\textbf{References Maintained:}
+\begin{itemize}
+    \item enemy\_manager: Set by EnemyManager.\_init()
+    \item current\_hud: Set by HUD.\_init()
+    \item current\_game\_scene: Set by Level.\_init()
+    \item main\_menu: Set by MainMenu.\_init()
+\end{itemize}
+
+\textbf{Game State:}
+\begin{itemize}
+    \item game\_ended: Boolean flag indicating win/loss state
+    \item Initialized to false in \_ready()
+    \item Set to true by game\_won() or game\_lost()
+    \item Checked by HUD to block pause during end state
+\end{itemize}
+
+\textbf{Victory Flow (game\_won):}
+\begin{itemize}
+    \item Called by EnemyManager.decrement\_enemy\_count() when count $\leq$ 0
+    \item Calls \_end\_game():
+    \begin{itemize}
+        \item game\_ended = true
+        \item pause\_menu.visible = false
+        \item level\_timer.paused = true
+    \end{itemize}
+    \item Calls current\_hud.game\_end\_popup.game\_won()
+    \item Popup becomes visible with won\_panel shown
+\end{itemize}
+
+\textbf{Defeat Flow (game\_lost):}
+\begin{itemize}
+    \item Called by Player.die() when health $\leq$ 0
+    \item Calls \_end\_game() (same as victory)
+    \item Calls current\_hud.game\_end\_popup.game\_lost()
+    \item Popup becomes visible with lost\_panel shown
+\end{itemize}
+
+\textbf{Time Scale Management:}
+\begin{itemize}
+    \item slow\_time\_scale(): Sets Engine.time\_scale = 0.1
+    \begin{itemize}
+        \item Called when pause menu opened
+        \item Called when end game popup shown
+        \item Game runs at 10\% speed for dramatic effect
+    \end{itemize}
+    \item normal\_time\_scale(): Sets Engine.time\_scale = 1.0
+    \begin{itemize}
+        \item Called when pause menu closed
+        \item Called when returning to menu from end state
+    \end{itemize}
+\end{itemize}
+
+\textbf{Menu Return Flow (game\_left):}
+\begin{itemize}
+    \item Called by EndGamePopup.on\_return\_button()
+    \item Hides pause\_menu
+    \item Calls normal\_time\_scale() to restore speed
+    \item Shows main\_menu (GameManager.main\_menu.visible = true)
+    \item Queues current\_game\_scene for deletion (cleanup)
+\end{itemize}
+
+\subsubsection{Full Gameplay Interaction Example}
+
+\textbf{Scenario: Enemy Dies and Awards Points}
+
+\begin{enumerate}
+    \item Player shoots projectile (calls player.shoot())
+    \item Projectile travels and collides with enemy (Area2D body\_entered signal)
+    \item Projectile calls enemy.damage(1.0)
+    \item Enemy health becomes 0
+    \item Enemy.damage() calls \_die():
+    \begin{enumerate}
+        \item \_drop\_power\_up(): 10\% RNG chance
+        \begin{itemize}
+            \item If true: Random powerup instantiated and added to scene at enemy position
+        \end{itemize}
+        \item ScoreManager.add\_points(100) increments current\_score by 100
+        \item GameManager.enemy\_manager.decrement\_enemy\_count():
+        \begin{itemize}
+            \item number\_of\_enemies -= 1
+            \item If number\_of\_enemies $\leq$ 0:
+            \begin{itemize}
+                \item GameManager.game\_won() called
+                \item \_end\_game() sets game\_ended=true, pauses timer
+                \item game\_end\_popup.game\_won() shows win panel
+            \end{itemize}
+        \end{itemize}
+        \item Enemy queued for deletion
+    \end{enumerate}
+    \item Level Timer Display (if all enemies dead):
+    \begin{itemize}
+        \item time\_label still shows remaining time (e.g., ``045.32'')
+        \item Time\_result bonus calculated in ScoreManager.calculate\_level\_score()
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Scenario: Player Collects Power-up}
+
+\begin{enumerate}
+    \item Power-up falling toward player
+    \item Player and power-up Area2D collide
+    \item power-up calls player.power\_up(``speed'', 2.0):
+    \begin{enumerate}
+        \item reset\_powerup() called first to clear any active power
+        \item speed\_mult = 2
+        \item Player sprite color modulated to GREEN\_YELLOW
+        \item powerup\_bar visible and max\_value set to 2.0
+        \item powerup\_timer.wait\_time = 2.0, starts
+    \end{enumerate}
+    \item During power duration:
+    \begin{itemize}
+        \item \_process() updates powerup\_bar.value = powerup\_timer.time\_left
+        \item Player movement x velocity multiplied by speed\_mult=2
+        \item Sprite remains powered until timeout
+    \end{itemize}
+    \item On powerup\_timer.timeout:
+    \begin{itemize}
+        \item on\_powerup\_timeout() calls reset\_powerup()
+        \item speed\_mult = 1
+        \item Color modulation restored to WHITE
+        \item powerup\_bar hidden
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Scenario: Pause Menu Interaction}
+
+\begin{enumerate}
+    \item Player presses Menu input action during gameplay
+    \item HUD.\_input() detects ``Menu'' action
+    \item toggle\_menu():
+    \begin{itemize}
+        \item pause\_menu.visible = true
+        \item GameManager.slow\_time\_scale() sets Engine.time\_scale = 0.1
+        \item All game processes slow to 10\%
+        \item Level timer slows
+        \item Enemy cooldown timers slow
+        \item Player movement input still processed but slow
+    \end{itemize}
+    \item Player presses Resume button
+    \item HUD.on\_resume\_button() calls toggle\_menu():
+    \begin{itemize}
+        \item pause\_menu.visible = false
+        \item GameManager.normal\_time\_scale() sets Engine.time\_scale = 1.0
+        \item Game resumes at normal speed
+    \end{itemize}
+\end{enumerate}
 \end{document}

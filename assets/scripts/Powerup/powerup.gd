@@ -12,3 +12,6 @@ func _on_PowerUp_body_entered(body : Node2D):
 	if body is Player:
 		body.power_up(power_type, time)
 		queue_free() # Remove the power-up from the scene
+
+func on_out_of_screen():
+	queue_free()
