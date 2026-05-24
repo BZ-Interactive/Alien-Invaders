@@ -25,9 +25,9 @@ func _ready() -> void:
 	
 func _drop_power_up() -> void:
 	if randf() <= power_up_chance:
-		var powerup = PowerupManager.Instance.get_power_rand_up().instantiate()
+		var powerup := PowerupManager.Instance.get_power_rand_up().instantiate()
 		GameManager.current_game_scene.projectile_parent.add_child.call_deferred(powerup)
-		powerup.position = self.position
+		powerup.global_position = self.global_position
 
 # basic rng based coin flip logic
 func _will_shoot() -> bool:
