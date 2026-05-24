@@ -86,6 +86,7 @@ Alien Invaders uses a hierarchical state management architecture centered around
     \item \textbf{GameManager}: Central orchestrator managing game state, scene references, and system coordination
     \item \textbf{Player System}: CharacterBody2D-based player ship with movement, combat, power-ups, and health
     \item \textbf{Enemy System}: CharacterBody2D-based enemy ships with async AI shooting loops and obstruction detection
+    \item \textbf{Enemy Parent}: Node2D-based group movement controller with timer-driven random grid shifts and tween animation
     \item \textbf{Score Manager}: Global singleton tracking accumulation, bonuses, and high score
     \item \textbf{Power-up System}: Manager and individual power-ups with collision detection and effect application
     \item \textbf{Scene Loader}: Backend system supporting both direct and threaded scene loading
@@ -124,7 +125,8 @@ Player uses CharacterBody2D.move\_and\_slide() for screen-boundary respecting mo
 \begin{itemize}
     \item Enemies positioned in grid layout with configurable row offsets
     \item Async shooting loop with probability-based (50\% default) and cooldown-based (1-4s) triggering
-    \item Raycast-based obstruction detection prevents shooting through other entities
+    \item RayCast2D node-based obstruction detection prevents shooting through other entities
+    \item Group movement via EnemyParent: periodic random-direction shifts (4-way + diagonal) with smooth tween animation
     \item Power-ups drop with 10\% probability on enemy death
     \item Enemy death awards 100 points and decrements enemy counter
     \item All enemies defeated triggers win condition (finite mode) or next wave (infinite mode)
@@ -154,7 +156,7 @@ This section provides detailed technical documentation of each major game system
 
 \subsection{Player Ship System}
 
-\subsection{A. Constants and Configuration Values}
+\subsection{Constants and Configuration Values}
 
 \subsubsection{Player Ship}
 \begin{itemize}
@@ -177,7 +179,16 @@ This section provides detailed technical documentation of each major game system
     \item Time addition per enemy: 2.0 seconds
     \item Shooting direction: Vector2.DOWN
     \item Projectile spawn offset: 50 pixels in shooting direction
-    \item Raycast obstruction detection uses row\_offset distance
+    \item RayCast2D node for obstruction detection (target\_position = Vector2(0, 60))
+\end{itemize}
+
+\subsubsection{Enemy Parent (Group Movement)}
+\begin{itemize}
+    \item Move step: row\_offset distance per movement
+    \item Directional move limit: 2 steps from origin in any axis
+    \item Move timer range: 2-4 seconds between shifts
+    \item Movement types: single-direction (25\%) or diagonal (75\%)
+    \item Tween duration: 1.0 second for smooth animated movement
 \end{itemize}
 
 \subsubsection{Projectile}
@@ -210,12 +221,13 @@ This section provides detailed technical documentation of each major game system
 
 \subsubsection{Enemy Manager Grid}
 \begin{itemize}
-    \item Row offset distance: Configurable (used for raycast and positioning)
-    \item Placement markers: Configurable array (typical: 7 markers for 7 columns)
+    \item Row offset distance: Configurable (used for positioning and movement step)
+    \item Placement markers: Configurable array (typical: 17 markers for 17 columns)
     \item Row wrapping: After len(enemy\_placements) enemies, increment row\_count
+    \item Move Timer: One-shot timer triggering periodic group movement via EnemyParent
 \end{itemize}
 
-\subsection{B. Godot Engine Integration}
+\subsection{Godot Engine Integration}
 
 \begin{itemize}
     \item Engine version: Godot 4.x
@@ -230,7 +242,7 @@ This section provides detailed technical documentation of each major game system
     \item Singletons: PowerupManager (static Instance), GameManager, ScoreManager, SceneLoader
 \end{itemize}
 
-\subsection{C. Known Game Modes}
+\subsection{Known Game Modes}
 
 \begin{itemize}
     \item \textbf{Finite Level}: Level with timer-based win condition. Player must defeat all enemies before the timer expires. Level length determined by sum of all enemy time\_addition values plus configurable padding.
@@ -238,7 +250,7 @@ This section provides detailed technical documentation of each major game system
     \item Both modes share core mechanics (movement, combat, scoring, power-ups) but differ in win conditions and enemy spawning behavior.
 \end{itemize}
 
-\subsection{D. System Architecture and Interactions}
+\subsection{System Architecture and Interactions}
 
 \subsubsection{Game Flow Overview}
 
@@ -329,7 +341,7 @@ The Enemy class is a CharacterBody2D with async shooting loop:
 \begin{itemize}
     \item Infinite while loop: ``while health > 0''
     \item Await cooldown\_timer.timeout
-    \item If \_will\_shoot() (50\% RNG) AND \_is\_not\_obstructed():
+    \item If \_will\_shoot() (50\% RNG) AND not raycast.is\_colliding():
     \begin{itemize}
         \item Call \_shoot() to create and fire projectile
         \item Set new cooldown\_timer.wait\_time to random 1-4 seconds
@@ -338,13 +350,13 @@ The Enemy class is a CharacterBody2D with async shooting loop:
     \item Loop continues until health $\leq$ 0
 \end{itemize}
 
-\textbf{Obstruction Detection:}
+\textbf{Obstruction Detection (RayCast2D Node):}
 \begin{itemize}
-    \item \_is\_not\_obstructed() uses DirectSpaceState raycast
-    \item Raycast from enemy position down (shooting\_direction.DOWN)
-    \item Distance = row\_offset (vertical distance to player row)
-    \item Query excludes enemy's own RID to prevent self-detection
-    \item Returns true if result.is\_empty() (no collision)
+    \item Each Enemy ship has a RayCast2D child node with target\_position = Vector2(0, 60)
+    \item Raycast points downward matching shooting direction
+    \item Collision checked via raycast.is\_colliding() inline in shooting loop
+    \item Eliminates manual PhysicsRayQueryParameters2D construction per shot
+    \item Higher performance as RayCast2D is managed by Godot's physics server internally
     \item Prevents shooting through other enemies or obstacles
 \end{itemize}
 
@@ -368,6 +380,37 @@ The Enemy class is a CharacterBody2D with async shooting loop:
         \end{itemize}
         \item queue\_free() removes enemy from scene
     \end{itemize}
+\end{itemize}
+
+\subsubsection{Enemy Parent System (Group Movement)}
+
+EnemyParent is a Node2D attached to the Enemy Parent node, controlling random group-level movement of all enemies:
+
+\textbf{Initialization:}
+\begin{itemize}
+    \item Move Timer started in \_ready() with initial wait
+    \item current\_pos tracks virtual grid position (starts at Vector2.ZERO)
+    \item move\_step set to row\_offset from EnemyManager
+    \item First movement triggered after initial timer timeout
+\end{itemize}
+
+\textbf{Direction Decision (decide\_on\_dir):}
+\begin{itemize}
+    \item Dynamically builds available direction arrays based on current\_pos limits
+    \item x\_dir\_array: RIGHT if current\_pos.x $<$ dir\_move\_limit, LEFT if $>$ -dir\_move\_limit
+    \item y\_dir\_array: UP if current\_pos.y $>$ -dir\_move\_limit, DOWN if $<$ dir\_move\_limit
+    \item Movement bounds: dir\_move\_limit = 2 steps from origin in any axis
+    \item 75\% chance of diagonal movement (x + y), 25\% single-axis movement
+\end{itemize}
+
+\textbf{Group Movement Loop (move\_enemies):}
+\begin{itemize}
+    \item Runs while enemy\_manager.number\_of\_enemies $>$ 0
+    \item Awaits move\_timer.timeout, then calls decide\_on\_dir() for next direction
+    \item Updates current\_pos with chosen direction
+    \item Sets move\_timer.wait\_time to random range (2-4 seconds)
+    \item Animates via create\_tween().tween\_property() to target position over 1.0 second
+    \item All enemies move as a unit since they are children of the Enemy Parent node
 \end{itemize}
 
 \subsubsection{Score Manager System Details}
