@@ -1,6 +1,6 @@
 extends Node2D
 
-var enemy_manager: Node2D
+var enemy_manager: EnemyManager
 var main_menu: MainMenu
 
 var current_game_scene: Level

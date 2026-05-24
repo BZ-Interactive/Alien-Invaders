@@ -22,3 +22,6 @@ debug_color = Color(0.9198904, 0.28524467, 0, 0.41960785)
 
 [node name="Cooldown Timer" type="Timer" parent="." unique_id=151922517]
 wait_time = 2.0
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=546009724]
+target_position = Vector2(0, 60)

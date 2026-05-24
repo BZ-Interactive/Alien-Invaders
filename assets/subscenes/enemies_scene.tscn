@@ -2,16 +2,18 @@
 
 [ext_resource type="Script" uid="uid://0yqmgo21l4gp" path="res://assets/scripts/enemy_manager.gd" id="1_qwtv1"]
 [ext_resource type="Script" uid="uid://ckrrbs43xdukx" path="res://assets/scripts/enemy_spawner.gd" id="2_spidc"]
+[ext_resource type="Script" uid="uid://blhf5n8geprp8" path="res://assets/scripts/enemy_parent.gd" id="2_yg3o2"]
 [ext_resource type="PackedScene" uid="uid://co6rd13w70gcm" path="res://assets/subscenes/enemy_ship.tscn" id="3_yg3o2"]
 
 [node name="Enemies" type="Node2D" unique_id=207920044 node_paths=PackedStringArray("enemy_parent", "enemy_placements")]
 script = ExtResource("1_qwtv1")
 enemy_parent = NodePath("Enemy Parent")
-enemy_placements = [NodePath("Enemy Markers/Marker2D -0"), NodePath("Enemy Markers/Marker2D -1"), NodePath("Enemy Markers/Marker2D -2"), NodePath("Enemy Markers/Marker2D -3"), NodePath("Enemy Markers/Marker2D -4"), NodePath("Enemy Markers/Marker2D -5"), NodePath("Enemy Markers/Marker2D -6"), NodePath("Enemy Markers/Marker2D -7"), NodePath("Enemy Markers/Marker2D -8"), NodePath("Enemy Markers/Marker2D -9"), NodePath("Enemy Markers/Marker2D -10"), NodePath("Enemy Markers/Marker2D -11"), NodePath("Enemy Markers/Marker2D -12"), NodePath("Enemy Markers/Marker2D -13"), NodePath("Enemy Markers/Marker2D -14"), NodePath("Enemy Markers/Marker2D -15"), NodePath("Enemy Markers/Marker2D -16"), NodePath("Enemy Markers/Marker2D -17"), NodePath("Enemy Markers/Marker2D -18"), NodePath("Enemy Markers/Marker2D -19"), NodePath("Enemy Markers/Marker2D -20")]
+enemy_placements = [NodePath("Enemy Markers/Marker2D -0"), NodePath("Enemy Markers/Marker2D -1"), NodePath("Enemy Markers/Marker2D -2"), NodePath("Enemy Markers/Marker2D -3"), NodePath("Enemy Markers/Marker2D -4"), NodePath("Enemy Markers/Marker2D -5"), NodePath("Enemy Markers/Marker2D -6"), NodePath("Enemy Markers/Marker2D -7"), NodePath("Enemy Markers/Marker2D -8"), NodePath("Enemy Markers/Marker2D -9"), NodePath("Enemy Markers/Marker2D -10"), NodePath("Enemy Markers/Marker2D -11"), NodePath("Enemy Markers/Marker2D -12"), NodePath("Enemy Markers/Marker2D -13"), NodePath("Enemy Markers/Marker2D -14"), NodePath("Enemy Markers/Marker2D -15"), NodePath("Enemy Markers/Marker2D -16")]
 row_offset = 60.0
 
 [node name="Enemy Parent" type="Node2D" parent="." unique_id=392287]
 editor_description = "This is the parent node where the enemy ships should be added to"
+script = ExtResource("2_yg3o2")
 
 [node name="Enemy Spawner" type="Node2D" parent="." unique_id=610964148]
 script = ExtResource("2_spidc")
@@ -70,13 +72,21 @@ position = Vector2(480, 0)
 position = Vector2(-480, 0)
 
 [node name="Marker2D -17" type="Marker2D" parent="Enemy Markers" unique_id=410722343]
+visible = false
 position = Vector2(540, 0)
 
 [node name="Marker2D -18" type="Marker2D" parent="Enemy Markers" unique_id=329032423]
+visible = false
 position = Vector2(-540, 0)
 
 [node name="Marker2D -19" type="Marker2D" parent="Enemy Markers" unique_id=1948136756]
+visible = false
 position = Vector2(600, 0)
 
 [node name="Marker2D -20" type="Marker2D" parent="Enemy Markers" unique_id=2019816332]
+visible = false
 position = Vector2(-600, 0)
+
+[node name="Move Timer" type="Timer" parent="." unique_id=1718598807]
+wait_time = 2.0
+one_shot = true

@@ -21,7 +21,7 @@ position = Vector2(0, 270)
 
 [node name="Enemies" parent="." unique_id=207920044 instance=ExtResource("3_ftnf1")]
 editor_description = "By default enemy value is 30"
-number_of_enemies = 29
+number_of_enemies = 30
 
 [node name="Powerup Manager" parent="." unique_id=1577600470 instance=ExtResource("4_y7idx")]
 

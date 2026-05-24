@@ -4,6 +4,8 @@ class_name Enemy extends CharacterBody2D # this won't move for now in the future
 const shooting_direction = Vector2.DOWN
 var row_offset : float
 
+@onready var raycast = $RayCast2D
+
 # has to be between 0.0 and 1.0
 @export var shoot_chance : float = 0.5
 @onready var cooldown_timer : Timer = $"Cooldown Timer"
@@ -26,20 +28,6 @@ func _drop_power_up() -> void:
 		var powerup = PowerupManager.Instance.get_power_rand_up().instantiate()
 		GameManager.current_game_scene.projectile_parent.add_child.call_deferred(powerup)
 		powerup.position = self.position
-		pass
-
-# raycast check with row offset distance
-func _is_not_obstructed() -> bool:
-	var space_state = get_world_2d().direct_space_state
-
-	var from = position
-	var to = position + (shooting_direction.normalized() * row_offset)
-
-	var query = PhysicsRayQueryParameters2D.create(from, to)
-	query.exclude = [self.get_rid()] # ignore self
-
-	var result = space_state.intersect_ray(query)
-	return result.is_empty()
 
 # basic rng based coin flip logic
 func _will_shoot() -> bool:
@@ -48,7 +36,7 @@ func _will_shoot() -> bool:
 func _Engeage() -> void:
 	while health > 0:
 		await cooldown_timer.timeout
-		if _will_shoot() and _is_not_obstructed():
+		if _will_shoot() and not raycast.is_colliding():
 			_shoot()
 			cooldown_timer.wait_time = randf_range(1, 4)
 		cooldown_timer.start()

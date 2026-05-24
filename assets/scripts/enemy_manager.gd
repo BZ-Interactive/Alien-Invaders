@@ -15,6 +15,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	row_count = 0
+	enemy_parent.position = Vector2.ZERO
 
 func add_enemy(body : CharacterBody2D):
 	enemy_parent.add_child.call_deferred(body)
