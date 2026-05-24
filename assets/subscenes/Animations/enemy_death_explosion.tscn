@@ -4,8 +4,10 @@
 [ext_resource type="Script" uid="uid://ted5b46rvgxe" path="res://assets/scripts/animations/scripted_animation.gd" id="2_yoy0y"]
 
 [node name="Enemy Death Explosion" type="AnimatedSprite2D" unique_id=752792016]
-scale = Vector2(1.5, 1.5)
+scale = Vector2(1.2, 1.2)
 sprite_frames = ExtResource("1_w1tae")
 autoplay = "default"
+frame = 8
+frame_progress = 1.0
 speed_scale = 1.25
 script = ExtResource("2_yoy0y")
