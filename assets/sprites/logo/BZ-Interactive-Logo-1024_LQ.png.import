@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0sgq0urnq5dw"
-path="res://.godot/imported/BZ-Interactive-Logo-512_HQ.png-ea6817551548a137c950526fb9f9775e.ctex"
+uid="uid://b0v4icsgw70c7"
+path="res://.godot/imported/BZ-Interactive-Logo-1024_LQ.png-75de04322f2165677d2865c2dfa56031.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/logo/BZ-Interactive-Logo-512_HQ.png"
-dest_files=["res://.godot/imported/BZ-Interactive-Logo-512_HQ.png-ea6817551548a137c950526fb9f9775e.ctex"]
+source_file="res://assets/sprites/logo/BZ-Interactive-Logo-1024_LQ.png"
+dest_files=["res://.godot/imported/BZ-Interactive-Logo-1024_LQ.png-75de04322f2165677d2865c2dfa56031.ctex"]
 
 [params]
 

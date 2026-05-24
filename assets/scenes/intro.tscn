@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bbqwfhrqg156"]
 
-[ext_resource type="Texture2D" uid="uid://cm1gp7yrkswx4" path="res://assets/sprites/logo/BZ-Interactive-Logo.png" id="1_e2c8y"]
 [ext_resource type="Script" uid="uid://cenw2qj6d43ft" path="res://assets/scripts/GUI/intro.gd" id="1_w7g36"]
 [ext_resource type="PackedScene" uid="uid://4g85x5wnrk2r" path="res://assets/scenes/main_menu.tscn" id="2_5dkqn"]
 [ext_resource type="Texture2D" uid="uid://d3uvvm2gynid1" path="res://assets/sprites/square.svg" id="2_y745p"]
+[ext_resource type="Texture2D" uid="uid://b0v4icsgw70c7" path="res://assets/sprites/logo/BZ-Interactive-Logo-1024_LQ.png" id="3_5dkqn"]
 [ext_resource type="Texture2D" uid="uid://b5phimb7yaxdn" path="res://assets/icon/alien-invaders-icon.png" id="3_y745p"]
 
 [node name="Intro" type="CenterContainer" unique_id=1570683651]
@@ -24,7 +24,7 @@ color = Color(0, 0, 0, 1)
 [node name="Org Logo TextureRect" type="TextureRect" parent="." unique_id=1521313112]
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
-texture = ExtResource("1_e2c8y")
+texture = ExtResource("3_5dkqn")
 expand_mode = 1
 
 [node name="Icon Background TextureRect" type="TextureRect" parent="." unique_id=1600340393]
