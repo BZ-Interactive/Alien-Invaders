@@ -14,14 +14,15 @@ var enemy_manager: EnemyManager
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	move_timer.start()
+	_move_into_battle()
 	current_pos = Vector2.ZERO
 	move_step = GameManager.enemy_manager.row_offset
 	enemy_manager = GameManager.enemy_manager
 	# initial wait for guaranteed init
 	await move_timer.timeout
-	move_enemies()
+	_move_enemies()
 
-func decide_on_dir() -> Vector2:
+func _decide_on_dir() -> Vector2:
 	# two arrays will allow for directional movement
 	var direction_array
 	x_dir_array.clear()
@@ -46,12 +47,12 @@ func decide_on_dir() -> Vector2:
 		direction_array = x_dir_array + y_dir_array
 		return direction_array[randi_range(0, len(direction_array) - 1)]
 
-func move_enemies():
+func _move_enemies():
 	var dir: Vector2
 	while enemy_manager.number_of_enemies > 0:
 		move_timer.start()
 		await move_timer.timeout
-		dir = decide_on_dir()
+		dir = _decide_on_dir()
 		current_pos += dir
 		move_timer.wait_time = randf_range(min_move_time, max_move_time)
 		var target_position:= position + dir * move_step
@@ -59,3 +60,11 @@ func move_enemies():
 		var tween = create_tween().tween_property(self, "position", target_position, 1.0)
 		await tween.finished
 		enemy_manager.enemy_movement.emit(Vector2.ZERO)
+
+func _move_into_battle():
+	 # must be first frame to move
+	await get_tree().process_frame
+	self.global_position += Vector2.UP * 400
+	var tween = create_tween().tween_property(self, "global_position", Vector2.ZERO, 1.75)
+	await tween.finished
+	self.global_position = Vector2.ZERO

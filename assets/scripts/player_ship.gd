@@ -44,32 +44,32 @@ const JUMP_VELOCITY = -400.0
 @export var right_powered: CompressedTexture2D
 
 var dead : bool = false
+var entering : bool = false # for initial animation
 
 func _ready() -> void:
 	fire_cooldown_timer.timeout.connect(on_fire_cooldown_timeout)
 	powerup_timer.timeout.connect(on_powerup_timeout)
 	health_bar.value = self.health
 	powerup_bar.visible = false
+	_move_into_battle()
 
 func _input(event: InputEvent) -> void:
-	if not check_input_blocked() and (event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_up")):
+	if not _check_input_blocked() and (event.is_action_pressed("shoot")):
 		shoot()
 
 # physics based movement
 func _physics_process(_delta: float) -> void:
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	if check_input_blocked():
-		change_movement_sprite(0.0) # make sprite idle
+	if _check_input_blocked():
+		_change_movement_sprite(0.0) # make sprite idle
 		return
 	
-	var direction := Input.get_axis("ui_left", "ui_right")
+	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = direction * SPEED * speed_mult
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
-	change_movement_sprite(direction)
+	_change_movement_sprite(direction)
 	move_and_slide()
 	
 	# screen clamp
@@ -104,7 +104,7 @@ func power_up(power_type : String, time : float) -> void:
 	powerup_bar.visible = true
 	# can add effects
 
-func change_movement_sprite(direction : float):
+func _change_movement_sprite(direction : float):
 	if direction == 0.0 and not idle_visual.visible:
 		idle_visual.visible = true
 		left_visual.visible = false
@@ -157,5 +157,15 @@ func damage(dmg : float) -> void:
 	if health <= 0:
 		die()
 
-func check_input_blocked() -> bool:
-	return dead or GameManager.game_ended or GameManager.current_hud.pause_menu.visible
+func _check_input_blocked() -> bool:
+	return entering or dead or GameManager.game_ended or GameManager.current_hud.pause_menu.visible
+
+func _move_into_battle():
+	# must be first frame to manipulate positions
+	entering = true
+	await get_tree().process_frame  
+	self.global_position = Vector2(0, 400) # just out of screen
+	create_tween().tween_property(self, "global_position", GameManager.current_game_scene.player_pos_marker.global_position, 1.5)
+	await get_tree().create_timer(2).timeout
+	self.global_position = GameManager.current_game_scene.player_pos_marker.global_position
+	entering = false

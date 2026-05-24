@@ -24,7 +24,7 @@ var row_offset: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	cooldown_timer.wait_time = randf_range(1, 4)
+	cooldown_timer.wait_time = randf_range(2, 4)
 	cooldown_timer.start()
 	GameManager.enemy_manager.enemy_movement.connect(on_enemy_movement)
 	_change_movement_sprite(Vector2.ZERO) # used to reset the sprite

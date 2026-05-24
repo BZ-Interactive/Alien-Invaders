@@ -24,6 +24,7 @@ projectile = ExtResource("2_bpkrg")
 speed_style = ExtResource("3_xskac")
 shield_style = ExtResource("4_vqjig")
 firerate_style = ExtResource("5_b8drq")
+health = null
 idle_standard = ExtResource("1_rx2q0")
 left_standard = ExtResource("4_p71o1")
 right_standard = ExtResource("5_prim7")
