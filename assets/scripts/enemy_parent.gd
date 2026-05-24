@@ -55,4 +55,7 @@ func move_enemies():
 		current_pos += dir
 		move_timer.wait_time = randf_range(min_move_time, max_move_time)
 		var target_position:= position + dir * move_step
-		create_tween().tween_property(self, "position", target_position, 1.0)
+		enemy_manager.enemy_movement.emit(dir)
+		var tween = create_tween().tween_property(self, "position", target_position, 1.0)
+		await tween.finished
+		enemy_manager.enemy_movement.emit(Vector2.ZERO)

@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://b3camta2cki84" path="res://assets/sprites/SpaceRage/Enemies/enemy_1_r_m.png" id="1_1a1go"]
 [ext_resource type="Script" uid="uid://b3dhmskd3se2h" path="res://assets/scripts/enemy_ship.gd" id="1_yht6q"]
 [ext_resource type="PackedScene" uid="uid://obo7yr6tges0" path="res://assets/subscenes/projectile.tscn" id="2_w1js0"]
+[ext_resource type="Texture2D" uid="uid://dr1ks5p1a5owh" path="res://assets/sprites/SpaceRage/Enemies/enemy_1_r_r1.png" id="4_djjw1"]
+[ext_resource type="Texture2D" uid="uid://0jvmsm8s6weh" path="res://assets/sprites/SpaceRage/Enemies/enemy_1_r_l2.png" id="5_e412o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w1js0"]
 radius = 30.0
@@ -12,9 +14,19 @@ disable_mode = 1
 script = ExtResource("1_yht6q")
 projectile = ExtResource("2_w1js0")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=93024429]
+[node name="Idle Sprite2D" type="Sprite2D" parent="." unique_id=93024429]
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("1_1a1go")
+
+[node name="Right Sprite2D" type="Sprite2D" parent="." unique_id=150449040]
+visible = false
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("4_djjw1")
+
+[node name="Left Sprite2D" type="Sprite2D" parent="." unique_id=204579220]
+visible = false
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("5_e412o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1985694334]
 shape = SubResource("CircleShape2D_w1js0")

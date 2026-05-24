@@ -1,26 +1,33 @@
 class_name Enemy extends CharacterBody2D # this won't move for now in the future will
 
-@export var projectile : PackedScene
+@export var projectile: PackedScene
 const shooting_direction = Vector2.DOWN
-var row_offset : float
+var row_offset: float
 
 @onready var raycast = $RayCast2D
 
 # has to be between 0.0 and 1.0
-@export var shoot_chance : float = 0.5
-@onready var cooldown_timer : Timer = $"Cooldown Timer"
+@export var shoot_chance: float = 0.5
+@onready var cooldown_timer: Timer = $"Cooldown Timer"
 
-@export var health : float = 1.0
+@export var health: float = 1.0
 
 @export_category("Power up")
-@export var power_up_chance : float = 0.1 # has to be between 0.0 and 1.0
-@export var points:int = 100
-@export var time_addition:float = 2.0 # seconds
+@export var power_up_chance: float = 0.1 # has to be between 0.0 and 1.0
+@export var points: int = 100
+@export var time_addition: float = 2.0 # seconds
+
+#@export_category("Movement Sprites")
+@onready var idle_sprite: Sprite2D = $"Idle Sprite2D"
+@onready var right_sprite: Sprite2D = $"Right Sprite2D"
+@onready var left_sprite: Sprite2D = $"Left Sprite2D"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	cooldown_timer.wait_time = randf_range(1, 4)
 	cooldown_timer.start()
+	GameManager.enemy_manager.enemy_movement.connect(on_enemy_movement)
+	_change_movement_sprite(Vector2.ZERO) # used to reset the sprite
 	_Engeage()
 	
 func _drop_power_up() -> void:
@@ -50,6 +57,7 @@ func _shoot() -> void:
 func _die():
 	ScoreManager.add_points(points)
 	GameManager.enemy_manager.decrement_enemy_count()
+	GameManager.enemy_manager.enemy_movement.disconnect(on_enemy_movement)
 	self.queue_free()
 
 func damage(dmg : float) -> void:
@@ -57,3 +65,20 @@ func damage(dmg : float) -> void:
 	if health <= 0:
 		_drop_power_up()
 		_die()
+
+func _change_movement_sprite(dir: Vector2):
+	if dir.x < 0: # left
+		idle_sprite.visible = false
+		right_sprite.visible = false
+		left_sprite.visible = true
+	elif dir.x > 0: # right
+		idle_sprite.visible = false
+		left_sprite.visible = false
+		right_sprite.visible = true
+	else: # no horizontal movement
+		left_sprite.visible = false
+		right_sprite.visible = false
+		idle_sprite.visible = true
+
+func on_enemy_movement(dir: Vector2):
+	_change_movement_sprite(dir)

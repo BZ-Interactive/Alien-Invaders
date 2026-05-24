@@ -10,6 +10,8 @@ class_name EnemyManager extends Node2D
 var current_count: int
 var row_count: int
 
+@warning_ignore("unused_signal") signal enemy_movement(Vector2)
+
 func _init() -> void:
 	GameManager.enemy_manager = self
 
