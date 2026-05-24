@@ -32,6 +32,8 @@ const JUMP_VELOCITY = -400.0
 @onready var left_visual: Sprite2D = $"Ship Left Sprite2D"
 @onready var right_visual: Sprite2D = $"Ship Right Sprite2D"
 
+@export var death_anim: PackedScene
+
 @export_group("Sprites")
 @export_subgroup("Standard")
 @export var idle_standard: CompressedTexture2D
@@ -47,6 +49,7 @@ var dead : bool = false
 var entering : bool = false # for initial animation
 
 func _ready() -> void:
+	dead = false
 	fire_cooldown_timer.timeout.connect(on_fire_cooldown_timeout)
 	powerup_timer.timeout.connect(on_powerup_timeout)
 	health_bar.value = self.health
@@ -145,6 +148,12 @@ func on_powerup_timeout():
 	reset_powerup()
 
 func die():
+	dead = true
+	var anim = death_anim.instantiate() as ScriptedAnimation
+	GameManager.current_game_scene.add_child.call_deferred(anim)
+	anim.global_position = self.global_position
+	create_tween().tween_property(self, "modulate", Color.TRANSPARENT, 0.75)
+	await anim.animation_complete
 	GameManager.game_lost()
 	self.queue_free()
 

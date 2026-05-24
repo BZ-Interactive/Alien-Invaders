@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c80n8f5ufgivu"]
+
+[ext_resource type="SpriteFrames" uid="uid://dfajbyuat1yqd" path="res://assets/sprites/animations/explosion_2.tres" id="1_w1tae"]
+[ext_resource type="Script" uid="uid://ted5b46rvgxe" path="res://assets/scripts/animations/scripted_animation.gd" id="2_yoy0y"]
+
+[node name="Enemy Death Explosion" type="AnimatedSprite2D" unique_id=752792016]
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("1_w1tae")
+autoplay = "default"
+speed_scale = 1.25
+script = ExtResource("2_yoy0y")

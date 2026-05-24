@@ -17,10 +17,12 @@ var row_offset: float
 @export var points: int = 100
 @export var time_addition: float = 2.0 # seconds
 
-#@export_category("Movement Sprites")
+@export_category("Sprites and Animations")
 @onready var idle_sprite: Sprite2D = $"Idle Sprite2D"
 @onready var right_sprite: Sprite2D = $"Right Sprite2D"
 @onready var left_sprite: Sprite2D = $"Left Sprite2D"
+
+@export var death_anim: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -58,6 +60,11 @@ func _die():
 	ScoreManager.add_points(points)
 	GameManager.enemy_manager.decrement_enemy_count()
 	GameManager.enemy_manager.enemy_movement.disconnect(on_enemy_movement)
+	var anim = death_anim.instantiate() as ScriptedAnimation
+	GameManager.current_game_scene.add_child.call_deferred(anim)
+	anim.global_position = self.global_position
+	var tween = create_tween().tween_property(self, "modulate", Color.TRANSPARENT, 0.25)
+	await tween.finished
 	self.queue_free()
 
 func damage(dmg : float) -> void:

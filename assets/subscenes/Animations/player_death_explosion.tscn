@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c0x2bwc7o6pci"]
+
+[ext_resource type="SpriteFrames" uid="uid://dks7ins83dm6k" path="res://assets/sprites/animations/explosion_1.tres" id="1_oaswt"]
+[ext_resource type="Script" uid="uid://ted5b46rvgxe" path="res://assets/scripts/animations/scripted_animation.gd" id="2_g5v2n"]
+
+[node name="Player Death Explosion" type="AnimatedSprite2D" unique_id=752792016]
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("1_oaswt")
+autoplay = "default"
+script = ExtResource("2_g5v2n")

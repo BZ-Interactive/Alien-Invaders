@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dokc1xrj0faun" path="res://assets/sprites/SpaceRage/FX/proton_01.png" id="9_1hsqt"]
 [ext_resource type="Theme" uid="uid://cuv1xqnxiffs5" path="res://assets/themes/health_bar_theme.tres" id="10_c2s3c"]
 [ext_resource type="Theme" uid="uid://endmvgrke644" path="res://assets/themes/powerup_theme.tres" id="11_7ccbr"]
+[ext_resource type="PackedScene" uid="uid://c0x2bwc7o6pci" path="res://assets/subscenes/Animations/player_death_explosion.tscn" id="15_vqjig"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p71o1"]
 radius = 30.0
@@ -24,7 +25,7 @@ projectile = ExtResource("2_bpkrg")
 speed_style = ExtResource("3_xskac")
 shield_style = ExtResource("4_vqjig")
 firerate_style = ExtResource("5_b8drq")
-health = null
+death_anim = ExtResource("15_vqjig")
 idle_standard = ExtResource("1_rx2q0")
 left_standard = ExtResource("4_p71o1")
 right_standard = ExtResource("5_prim7")
