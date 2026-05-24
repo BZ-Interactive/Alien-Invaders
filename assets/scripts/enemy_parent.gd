@@ -2,10 +2,10 @@ extends Node2D
 
 @onready var move_timer: Timer = $"../Move Timer"
 @export var dir_move_limit: int = 2
-@export var min_move_time: float = 2
-@export var max_move_time: float = 4
+@export var min_move_time: float = 1.5
+@export var max_move_time: float = 5.0
 var current_pos: Vector2 = Vector2.ZERO
-var diagonal_move_chance: float = 0.75
+@export var straight_move_chance: float = 0.8
 var x_dir_array = [] # left, right
 var y_dir_array = [] # up, down
 var move_step: float
@@ -38,7 +38,7 @@ func decide_on_dir() -> Vector2:
 	if current_pos.y < dir_move_limit: # can move down
 		y_dir_array.append(Vector2.DOWN)
 	
-	if randi_range(0, 1) > diagonal_move_chance: # diagonal movement
+	if randi_range(0, 1) > straight_move_chance: # diagonal movement
 		var x_move = x_dir_array[randi_range(0, len(x_dir_array) - 1)]
 		var y_move = y_dir_array[randi_range(0, len(y_dir_array) - 1)]
 		return x_move + y_move
