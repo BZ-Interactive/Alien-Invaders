@@ -32,5 +32,5 @@ func add_enemy(body : CharacterBody2D):
 
 func decrement_enemy_count():
 	number_of_enemies -= 1
-	if number_of_enemies <= 0:
+	if number_of_enemies <= 0 and not GameManager.game_ended:
 		GameManager.game_won()
