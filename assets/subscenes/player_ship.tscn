@@ -62,8 +62,9 @@ one_shot = true
 [node name="Shield Sprite2D" type="Sprite2D" parent="." unique_id=1011139866]
 visible = false
 modulate = Color(1, 1, 1, 0.5019608)
-scale = Vector2(10, 10)
+scale = Vector2(6, 6)
 texture = ExtResource("9_1hsqt")
+offset = Vector2(0, 0.5)
 
 [node name="Health Bar" type="ProgressBar" parent="." unique_id=204158140]
 anchors_preset = 5
