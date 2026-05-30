@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0v4icsgw70c7"
-path="res://.godot/imported/BZ-Interactive-Logo-1024_LQ.png-75de04322f2165677d2865c2dfa56031.ctex"
+uid="uid://kkvon3yd0ist"
+path="res://.godot/imported/alien-invaders-128c-1024.webp-147d8b0fe6aabe6554fe991ac7bfb857.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/logo/BZ-Interactive-Logo-1024_LQ.png"
-dest_files=["res://.godot/imported/BZ-Interactive-Logo-1024_LQ.png-75de04322f2165677d2865c2dfa56031.ctex"]
+source_file="res://assets/icon/alien-invaders-128c-1024.webp"
+dest_files=["res://.godot/imported/alien-invaders-128c-1024.webp-147d8b0fe6aabe6554fe991ac7bfb857.ctex"]
 
 [params]
 

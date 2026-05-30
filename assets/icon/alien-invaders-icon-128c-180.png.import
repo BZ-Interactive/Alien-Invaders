@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxn24pg3fiqxo"
-path="res://.godot/imported/alien-invaders-icon-512.png-73f4399ef40ac20720bb9c1cdcc7307c.ctex"
+uid="uid://bpyggt3itcrxl"
+path="res://.godot/imported/alien-invaders-icon-128c-180.png-79aa01f3377485e9a3f1b23214378bce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icon/alien-invaders-icon-512.png"
-dest_files=["res://.godot/imported/alien-invaders-icon-512.png-73f4399ef40ac20720bb9c1cdcc7307c.ctex"]
+source_file="res://assets/icon/alien-invaders-icon-128c-180.png"
+dest_files=["res://.godot/imported/alien-invaders-icon-128c-180.png-79aa01f3377485e9a3f1b23214378bce.ctex"]
 
 [params]
 
