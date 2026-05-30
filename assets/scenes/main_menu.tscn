@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://yc4oisy4sipu" path="res://assets/scripts/GUI/right_decor.gd" id="5_i3q7b"]
 [ext_resource type="Texture2D" uid="uid://b4erfp2w1mcab" path="res://assets/sprites/SpaceRage/Player/player_b_m.png" id="5_mi6j8"]
 [ext_resource type="Theme" uid="uid://ddslcw0el42ri" path="res://assets/themes/menu_theme.tres" id="5_tp4c4"]
-[ext_resource type="Texture2D" uid="uid://dhsh22kpkjlpv" path="res://build/alien-invaders-0-3-1/index.512x512.png" id="6_uek13"]
+[ext_resource type="Texture2D" uid="uid://bud0w1jpp3sri" path="res://assets/icon/alien-invaders-icon.png" id="6_uek13"]
 [ext_resource type="Texture2D" uid="uid://b3camta2cki84" path="res://assets/sprites/SpaceRage/Enemies/enemy_1_r_m.png" id="7_lorg4"]
 [ext_resource type="PackedScene" uid="uid://cvewbhvljokqy" path="res://assets/subscenes/GUI/highest_score.tscn" id="7_uek13"]
 [ext_resource type="Texture2D" uid="uid://de14k43rk8hjk" path="res://assets/sprites/SpaceRage/Enemies/enemy_2_r_m.png" id="8_mbm7v"]
