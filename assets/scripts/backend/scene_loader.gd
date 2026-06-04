@@ -33,5 +33,7 @@ func load_threaded(path : String):
 	set_process(true)
 
 ## Standard blocking, load
-func load_direct(path : String): 
-	get_tree().root.add_child(ResourceLoader.load(path).instantiate())
+func load_direct(path : String) -> Level:
+	var loaded_level = ResourceLoader.load(path).instantiate() as Level
+	get_tree().root.add_child(loaded_level)
+	return loaded_level

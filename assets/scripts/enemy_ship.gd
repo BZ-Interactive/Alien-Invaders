@@ -11,6 +11,7 @@ var row_offset: float
 @onready var cooldown_timer: Timer = $"Cooldown Timer"
 
 @export var health: float = 1.0
+var dead: bool = false
 
 @export_category("Power up")
 @export var power_up_chance: float = 0.1 # has to be between 0.0 and 1.0
@@ -23,15 +24,31 @@ var row_offset: float
 @onready var left_sprite: Sprite2D = $"Left Sprite2D"
 
 @export var death_anim: PackedScene
+@onready var char_coll: CollisionShape2D = $"CollisionShape2D"
+@onready var runner_coll: CollisionShape2D = $"Runner Hurtbox/Runner CollisionShape2D"
+
+@export var runner_speed: float = 125.0 # updated in runner_enemy_spawner.gd
+@export var damage: float = 1.0
+var runner: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	cooldown_timer.wait_time = randf_range(2, 4)
 	cooldown_timer.start()
-	GameManager.enemy_manager.enemy_movement.connect(on_enemy_movement)
-	_change_movement_sprite(Vector2.ZERO) # used to reset the sprite
-	_Engeage()
+	runner = GameManager.current_game_mode == GameMode.Type.RUNNER
 	
+	if not runner:
+		GameManager.enemy_manager.enemy_movement.connect(on_enemy_movement)
+	_change_movement_sprite(Vector2.ZERO) # used to reset the sprite
+	
+	_select_collison(runner)
+	if not runner:
+		_Engeage()
+
+func _physics_process(delta: float) -> void:
+	if runner:
+		self.position.y += runner_speed * delta
+
 func _drop_power_up() -> void:
 	if randf() <= power_up_chance:
 		var powerup := PowerupManager.Instance.get_power_rand_up().instantiate()
@@ -57,9 +74,13 @@ func _shoot() -> void:
 	GameManager.current_game_scene.projectile_parent.add_child(shot)
 
 func _die():
+	if dead: # sometimes two shots enter in the same collision causing this to run 2 times 
+		return
+	dead = true
 	ScoreManager.add_points(points)
-	GameManager.enemy_manager.decrement_enemy_count()
-	GameManager.enemy_manager.enemy_movement.disconnect(on_enemy_movement)
+	if not runner:
+		GameManager.enemy_manager.decrement_enemy_count()
+		GameManager.enemy_manager.enemy_movement.disconnect(on_enemy_movement)
 	var anim = death_anim.instantiate() as ScriptedAnimation
 	GameManager.current_game_scene.add_child.call_deferred(anim)
 	anim.global_position = self.global_position
@@ -67,11 +88,19 @@ func _die():
 	await tween.finished
 	self.queue_free()
 
-func damage(dmg : float) -> void:
+func take_damage(dmg : float) -> void:
 	self.health -= dmg
 	if health <= 0:
 		_drop_power_up()
 		_die()
+
+func _select_collison(rnr: bool):
+	if rnr:
+		char_coll.disabled = true
+		runner_coll.disabled = false
+	else:
+		char_coll.disabled = false
+		runner_coll.disabled = true
 
 func _change_movement_sprite(dir: Vector2):
 	if dir.x < 0: # left
@@ -89,3 +118,13 @@ func _change_movement_sprite(dir: Vector2):
 
 func on_enemy_movement(dir: Vector2):
 	_change_movement_sprite(dir)
+
+func on_body_entered(body: Node2D):
+	if dead:
+		return
+	if body.is_in_group("damageable"): # body.is_in_group("player"):
+		(body as Player).take_damage(damage)
+		_die()
+
+func on_screen_exit():
+	queue_free()

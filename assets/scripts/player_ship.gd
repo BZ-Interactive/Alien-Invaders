@@ -157,7 +157,7 @@ func die():
 	GameManager.game_lost()
 	self.queue_free()
 
-func damage(dmg : float) -> void:
+func take_damage(dmg : float) -> void:
 	# add damage and death logic here
 	if shield_up:
 		return

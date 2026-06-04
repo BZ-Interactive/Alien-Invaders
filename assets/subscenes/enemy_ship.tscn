@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c80n8f5ufgivu" path="res://assets/subscenes/Animations/enemy_death_explosion.tscn" id="3_e412o"]
 [ext_resource type="Texture2D" uid="uid://dr1ks5p1a5owh" path="res://assets/sprites/SpaceRage/Enemies/enemy_1_r_r1.png" id="4_djjw1"]
 [ext_resource type="Texture2D" uid="uid://0jvmsm8s6weh" path="res://assets/sprites/SpaceRage/Enemies/enemy_1_r_l2.png" id="5_e412o"]
+[ext_resource type="Script" uid="uid://dhh6sa650ou42" path="res://assets/scripts/Runner/runner_hurtbox.gd" id="7_ritrv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w1js0"]
 radius = 30.0
@@ -34,8 +35,20 @@ texture = ExtResource("5_e412o")
 shape = SubResource("CircleShape2D_w1js0")
 debug_color = Color(0.9198904, 0.28524467, 0, 0.41960785)
 
+[node name="Runner Hurtbox" type="Area2D" parent="." unique_id=1702784927 groups=["damageable", "enemy"]]
+script = ExtResource("7_ritrv")
+
+[node name="Runner CollisionShape2D" type="CollisionShape2D" parent="Runner Hurtbox" unique_id=998112456]
+shape = SubResource("CircleShape2D_w1js0")
+debug_color = Color(0.9273371, 5.4291486e-05, 0.6956019, 0.41960785)
+
 [node name="Cooldown Timer" type="Timer" parent="." unique_id=151922517]
 wait_time = 2.0
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=546009724]
 target_position = Vector2(0, 60)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1031390350]
+
+[connection signal="body_entered" from="Runner Hurtbox" to="." method="on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="on_screen_exit"]

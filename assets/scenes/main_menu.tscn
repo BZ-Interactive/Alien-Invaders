@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://4g85x5wnrk2r"]
 
 [ext_resource type="Script" uid="uid://b55lj4uvmgik1" path="res://assets/scripts/GUI/main_menu.gd" id="1_avopy"]
-[ext_resource type="PackedScene" uid="uid://8nats5am2k32" path="res://assets/scenes/finite_level.tscn" id="2_etql7"]
 [ext_resource type="Texture2D" uid="uid://m4rdb14y721a" path="res://assets/sprites/BG.png" id="2_trsu4"]
-[ext_resource type="PackedScene" uid="uid://dwbc556hh35om" path="res://assets/scenes/infinite_level.tscn" id="3_ej4af"]
 [ext_resource type="Script" uid="uid://yc4oisy4sipu" path="res://assets/scripts/GUI/right_decor.gd" id="5_i3q7b"]
 [ext_resource type="Texture2D" uid="uid://b4erfp2w1mcab" path="res://assets/sprites/SpaceRage/Player/player_b_m.png" id="5_mi6j8"]
 [ext_resource type="Theme" uid="uid://ddslcw0el42ri" path="res://assets/themes/menu_theme.tres" id="5_tp4c4"]
@@ -20,8 +18,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_avopy")
-game_scene = ExtResource("2_etql7")
-infinite_scene = ExtResource("3_ej4af")
 
 [node name="Background CenterContainer" type="CenterContainer" parent="." unique_id=1911593310]
 layout_mode = 1
@@ -88,6 +84,14 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Play"
+
+[node name="Runner Button" type="Button" parent="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer" unique_id=417779280]
+self_modulate = Color(0, 0.9687107, 0.7769277, 1)
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Runner"
 
 [node name="Infinite Button" type="Button" parent="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer" unique_id=1079502040]
 visible = false
@@ -163,6 +167,7 @@ texture = ExtResource("8_mbm7v")
 [node name="Invader VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Right Decor/Invader TextureRect" unique_id=1460029397]
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer/Play Button" to="." method="on_play_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer/Runner Button" to="." method="on_runner_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer/Infinite Button" to="." method="on_infinte_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer/Exit Button" to="." method="on_exit_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer/Org Button2" to="." method="on_org_button"]

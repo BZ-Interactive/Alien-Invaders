@@ -31,6 +31,7 @@ func _ready() -> void:
 	
 	# guarantee gui scene load by this time
 	skipable = true
+	GameManager.current_game_mode = GameMode.Type.MAIN_MENU
 	
 	wait_timer.start()
 	await wait_timer.timeout

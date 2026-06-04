@@ -11,12 +11,14 @@ class ScoreData:
 	var survived: int = 0
 	var time: int = 0
 	var total: int = 0
+	var wave: int = 0
 	
-	func _init(e:int, s: int, t: int, final: int):
+	func _init(e:int, s: int, t: int, final: int, w: int):
 		enemy = e
 		survived = s
 		time = t
 		total = final
+		wave = w
 
 func reset_current_score():
 	current_score = 0
@@ -35,11 +37,11 @@ func calculate_level_score(survived: bool, time: float, level: Level) -> ScoreDa
 	if survived and level.expected_time > 1 and time > 0:
 		time_result = clampi(int(time / level.expected_time * time_bonus), 0, Vector3i.MAX.x)
 	
-	current_score += (survived_result + time_result)
+	current_score += (survived_result + time_result + level.wave * level.wave_points)
 	
 	if current_score > highest_score:
 		highest_score = current_score
 		GameManager.main_menu.highest_score.set_highest_score(current_score)
 	
-	var result = ScoreData.new(enemy_result, survived_result, time_result, current_score)
+	var result = ScoreData.new(enemy_result, survived_result, time_result, current_score, level.wave)
 	return result

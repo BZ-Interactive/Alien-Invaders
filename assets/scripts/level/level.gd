@@ -8,9 +8,24 @@ class_name Level extends Node2D
 
 @onready var player_pos_marker: Marker2D = $"Player Pos Marker2D"
 
-func _init() -> void:
-	GameManager.current_game_scene = self
-	
+## runner variables
+var wave: int = 1
+@export var wave_points: int = 1000
+
 func _ready() -> void:
+	await get_tree().process_frame
 	level_timer.wait_time = expected_time
 	level_timer.start()
+	GameManager.current_hud.runner_time_panel.set_wave(wave)
+
+## this is for runner level
+func on_timer_timeout():
+	if GameManager.game_ended:
+		level_timer.Stop()
+	
+	if is_infininite and GameManager.current_game_mode == GameMode.Type.RUNNER:
+		wave += 1
+		GameManager.current_hud.runner_time_panel.set_wave(wave)
+		#ScoreManager.add_points((wave - 1) * wave_points)
+		level_timer.wait_time = expected_time
+		level_timer.start()

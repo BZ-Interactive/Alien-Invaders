@@ -6,6 +6,7 @@ var expected_time: float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	await get_tree().process_frame
 	spawn_enemies()
 
 func spawn_enemies():
@@ -13,7 +14,6 @@ func spawn_enemies():
 	while spawned_count < enemy_manager.number_of_enemies:
 		spawn_enemy()
 		spawned_count += 1
-	
 	GameManager.current_game_scene.expected_time = expected_time
 
 func spawn_enemy() -> void:

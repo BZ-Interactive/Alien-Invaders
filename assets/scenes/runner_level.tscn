@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://dwbc556hh35om"]
+
+[ext_resource type="Script" uid="uid://cglrkwgiao083" path="res://assets/scripts/level/level.gd" id="1_nk6v1"]
+[ext_resource type="Texture2D" uid="uid://m4rdb14y721a" path="res://assets/sprites/BG.png" id="2_b03o4"]
+[ext_resource type="PackedScene" uid="uid://dpycr455cjx0w" path="res://assets/subscenes/player_ship.tscn" id="3_8y4gg"]
+[ext_resource type="PackedScene" uid="uid://c02hrh5doen6u" path="res://assets/subscenes/runner_enemies.tscn" id="4_nk6v1"]
+[ext_resource type="PackedScene" uid="uid://bikcucdv8b4a8" path="res://assets/subscenes/Powerup/powerup_manager.tscn" id="5_j6oku"]
+[ext_resource type="PackedScene" uid="uid://cfn8g7tepywge" path="res://assets/subscenes/GUI/hud.tscn" id="6_5b5jl"]
+
+[node name="Runner level Root" type="Node2D" unique_id=1883818601]
+script = ExtResource("1_nk6v1")
+is_infininite = true
+expected_time = 30.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1257399860]
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D" unique_id=449364170]
+scale = Vector2(2, 2)
+texture = ExtResource("2_b03o4")
+
+[node name="Player Pos Marker2D" type="Marker2D" parent="." unique_id=2007504256]
+position = Vector2(0, 100)
+gizmo_extents = 100.0
+
+[node name="Player ship" parent="." unique_id=1134166323 instance=ExtResource("3_8y4gg")]
+position = Vector2(0, 270)
+
+[node name="Runner Enemies" parent="." unique_id=454273765 instance=ExtResource("4_nk6v1")]
+position = Vector2(0, -400)
+
+[node name="Powerup Manager" parent="." unique_id=1577600470 instance=ExtResource("5_j6oku")]
+
+[node name="Projectile Parent" type="Node2D" parent="." unique_id=1892161787]
+
+[node name="HUD" parent="." unique_id=624296192 instance=ExtResource("6_5b5jl")]
+
+[node name="Level Timer" type="Timer" parent="." unique_id=2008232597]
+one_shot = true
+
+[connection signal="timeout" from="Level Timer" to="." method="on_timer_timeout"]

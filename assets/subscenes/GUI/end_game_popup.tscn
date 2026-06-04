@@ -31,6 +31,20 @@ corner_radius_bottom_left = 4
 corner_detail = 1
 anti_aliasing = false
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rn4q2"]
+bg_color = Color(0, 0.57182604, 0.86619675, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 0.5019608)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+anti_aliasing = false
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m3bcg"]
 bg_color = Color(0.862199, 0.6578102, 0, 1)
 border_width_left = 6
@@ -88,6 +102,18 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_q4el1")
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = " Level Failed! "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Runner PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2113442100]
+custom_minimum_size = Vector2(175, 45)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rn4q2")
+
+[node name="Total Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Runner PanelContainer" unique_id=1474657712]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Final:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -169,6 +195,61 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="spacer2" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/VBoxContainer" unique_id=1452317188]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Runner VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer" unique_id=1703557775]
+visible = false
+layout_mode = 2
+
+[node name="spacer" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/Runner VBoxContainer" unique_id=1852588287]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Total Score Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/Runner VBoxContainer" unique_id=498081920]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "XXXXXXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Enemy HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/Runner VBoxContainer" unique_id=1934050966]
+layout_mode = 2
+alignment = 1
+
+[node name="Enemy Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/Runner VBoxContainer/Enemy HBoxContainer" unique_id=38585544]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Enemies:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Enemy Points Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/Runner VBoxContainer/Enemy HBoxContainer" unique_id=615119679]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "XXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Wave HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/Runner VBoxContainer" unique_id=117548217]
+layout_mode = 2
+alignment = 1
+
+[node name="Wave Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/Runner VBoxContainer/Wave HBoxContainer" unique_id=728936730]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wave Bonus:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Wave Points Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/Runner VBoxContainer/Wave HBoxContainer" unique_id=376541464]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "XXXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer2" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/Runner VBoxContainer" unique_id=1180632350]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 

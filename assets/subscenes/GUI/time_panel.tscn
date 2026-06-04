@@ -16,6 +16,22 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
 
+[node name="Runner HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1871681586]
+layout_mode = 2
+alignment = 1
+
+[node name="Runner Wave Label" type="Label" parent="VBoxContainer/Runner HBoxContainer" unique_id=895559987]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wave:"
+horizontal_alignment = 1
+
+[node name="Wave Number Label" type="Label" parent="VBoxContainer/Runner HBoxContainer" unique_id=1808308880]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "XX"
+horizontal_alignment = 1
+
 [node name="For Bonus Label" type="Label" parent="VBoxContainer" unique_id=1830795799]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12

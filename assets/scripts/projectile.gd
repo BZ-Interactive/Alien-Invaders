@@ -9,7 +9,6 @@ var speed : float = 250
 func _physics_process(delta: float) -> void:
 	if (shot):
 		position += delta * speed * direction
-	pass
 
 func shoot(dir : Vector2, spd : float = 250):
 	self.direction = dir
@@ -17,9 +16,14 @@ func shoot(dir : Vector2, spd : float = 250):
 	self.rotation = direction.angle() + deg_to_rad(90)
 	shot = true
 
-func _on_body_entered(body: Node) -> void:
+func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("damageable"):
-		body.damage(damage);
+		body.take_damage(damage);
+		self.queue_free()
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("damageable"):
+		area.take_damage(damage);
 		self.queue_free()
 
 # self free, prevent infinite lifetime

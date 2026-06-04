@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://c02hrh5doen6u"]
+
+[ext_resource type="Script" uid="uid://c3krear4dsodx" path="res://assets/scripts/Runner_Spawner/runner_enemy_spawner.gd" id="1_mnqao"]
+[ext_resource type="PackedScene" uid="uid://co6rd13w70gcm" path="res://assets/subscenes/enemy_ship.tscn" id="2_vulch"]
+[ext_resource type="Texture2D" uid="uid://b3camta2cki84" path="res://assets/sprites/SpaceRage/Enemies/enemy_1_r_m.png" id="3_dy5vs"]
+[ext_resource type="Texture2D" uid="uid://de14k43rk8hjk" path="res://assets/sprites/SpaceRage/Enemies/enemy_2_r_m.png" id="4_pb4kr"]
+[ext_resource type="Texture2D" uid="uid://bpp6yucpfrfpe" path="res://assets/sprites/SpaceRage/Enemies/mine_12_01.png" id="5_541hq"]
+
+[node name="Runner Enemies" type="Node2D" unique_id=454273765]
+
+[node name="Basic Enemy Spawner" type="Node2D" parent="." unique_id=1071525206]
+script = ExtResource("1_mnqao")
+enemy_scene = ExtResource("2_vulch")
+
+[node name="Spawn Timer" type="Timer" parent="Basic Enemy Spawner" unique_id=1402945061]
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Basic Enemy Spawner" unique_id=1936503229]
+texture = ExtResource("3_dy5vs")
+
+[node name="Large Enemy Spawner" type="Node2D" parent="." unique_id=350197974]
+position = Vector2(60, 0)
+script = ExtResource("1_mnqao")
+
+[node name="Spawn Timer" type="Timer" parent="Large Enemy Spawner" unique_id=858755129]
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Large Enemy Spawner" unique_id=273448314]
+texture = ExtResource("4_pb4kr")
+
+[node name="Mine Spawner" type="Node2D" parent="." unique_id=575452930]
+position = Vector2(-60, 0)
+script = ExtResource("1_mnqao")
+
+[node name="Spawn Timer" type="Timer" parent="Mine Spawner" unique_id=1551127642]
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Mine Spawner" unique_id=678736856]
+texture = ExtResource("5_541hq")
+
+[node name="Enemy Parent" type="Node2D" parent="." unique_id=314968242]

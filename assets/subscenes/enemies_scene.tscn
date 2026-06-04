@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dmpq4fdurtoru"]
 
-[ext_resource type="Script" uid="uid://0yqmgo21l4gp" path="res://assets/scripts/enemy_manager.gd" id="1_qwtv1"]
-[ext_resource type="Script" uid="uid://ckrrbs43xdukx" path="res://assets/scripts/enemy_spawner.gd" id="2_spidc"]
-[ext_resource type="Script" uid="uid://blhf5n8geprp8" path="res://assets/scripts/enemy_parent.gd" id="2_yg3o2"]
+[ext_resource type="Script" uid="uid://0yqmgo21l4gp" path="res://assets/scripts/Shooter_Spawner/enemy_manager.gd" id="1_qwtv1"]
+[ext_resource type="Script" uid="uid://ckrrbs43xdukx" path="res://assets/scripts/Shooter_Spawner/enemy_spawner.gd" id="2_spidc"]
+[ext_resource type="Script" uid="uid://blhf5n8geprp8" path="res://assets/scripts/Shooter_Spawner/enemy_parent.gd" id="2_yg3o2"]
 [ext_resource type="PackedScene" uid="uid://co6rd13w70gcm" path="res://assets/subscenes/enemy_ship.tscn" id="3_yg3o2"]
 
 [node name="Enemies" type="Node2D" unique_id=207920044 node_paths=PackedStringArray("enemy_parent", "enemy_placements")]
