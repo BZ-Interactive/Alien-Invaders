@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c33we01rq1rww" path="res://assets/sprites/UI/arrow-key-h.svg.svg" id="2_y5lmi"]
 [ext_resource type="Texture2D" uid="uid://wh2xgmx4afht" path="res://assets/sprites/UI/arrow-key-v.svg" id="3_tma3g"]
 [ext_resource type="Texture2D" uid="uid://dgwptwmga55eo" path="res://assets/sprites/UI/menu-hmb.svg" id="4_0oxwq"]
+[ext_resource type="Script" uid="uid://jjybfxpjbkyf" path="res://assets/scripts/GUI/fps_counter.gd" id="5_tma3g"]
 
 [node name="Top PanelContainer" type="PanelContainer" unique_id=534718448]
 anchors_preset = -1
@@ -128,13 +129,29 @@ modulate = Color(1, 1, 1, 0.5019608)
 layout_mode = 2
 alignment = 2
 
-[node name="Firerate Label" type="Label" parent="Menu HBoxContainer" unique_id=276638043]
+[node name="FPS HboxContainer" type="HBoxContainer" parent="Menu HBoxContainer" unique_id=1220147593]
+layout_mode = 2
+script = ExtResource("5_tma3g")
+
+[node name="FPS Label" type="Label" parent="Menu HBoxContainer/FPS HboxContainer" unique_id=156378224]
+layout_mode = 2
+text = "FPS:"
+
+[node name="FPS Value Label" type="Label" parent="Menu HBoxContainer/FPS HboxContainer" unique_id=256102891]
+layout_mode = 2
+text = "XX"
+
+[node name="spacer" type="Control" parent="Menu HBoxContainer" unique_id=346393235]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Menu Label" type="Label" parent="Menu HBoxContainer" unique_id=276638043]
 layout_mode = 2
 text = "ESC"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Firerate TextureRect" type="TextureRect" parent="Menu HBoxContainer" unique_id=915419644]
+[node name="Menu TextureRect" type="TextureRect" parent="Menu HBoxContainer" unique_id=915419644]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 texture = ExtResource("4_0oxwq")
