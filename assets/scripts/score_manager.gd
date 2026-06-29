@@ -36,8 +36,11 @@ func calculate_level_score(survived: bool, time: float, level: Level) -> ScoreDa
 	
 	if survived and level.expected_time > 1 and time > 0:
 		time_result = clampi(int(time / level.expected_time * time_bonus), 0, Vector3i.MAX.x)
-	
-	current_score += (survived_result + time_result + level.wave * level.wave_points)
+		print(time_result)
+	if GameManager.current_game_mode == GameMode.Type.SHOOTER:
+		current_score += (survived_result + time_result)
+	elif GameManager.current_game_mode == GameMode.Type.RUNNER:
+		current_score += (survived_result + time_result + level.wave * level.wave_points)
 	
 	if current_score > highest_score:
 		highest_score = current_score

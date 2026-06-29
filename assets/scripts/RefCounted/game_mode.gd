@@ -4,7 +4,7 @@ enum Type {
 	START,
 	MAIN_MENU,
 	SHOOTER,
-	INFINITE,
+	INFINITE, # unused
 	RUNNER,
 	EXIT
 }

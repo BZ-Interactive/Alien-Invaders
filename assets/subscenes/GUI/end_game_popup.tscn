@@ -262,4 +262,10 @@ custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "Return to Menu"
 
+[node name="Continue Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=488589195]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+text = "Continue"
+
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Return Button" to="." method="on_return_button"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Continue Button" to="." method="on_continue_button"]

@@ -24,8 +24,10 @@ func load_scene(type: GameMode.Type):
 		
 	match type:
 		GameMode.Type.SHOOTER:
+			game_ended = false
 			current_game_scene = SceneLoader.load_direct(shooter_path)
 		GameMode.Type.RUNNER:
+			game_ended = false
 			current_game_scene = SceneLoader.load_direct(runner_path)
 		GameMode.Type.MAIN_MENU:
 			GameManager.normal_time_scale()

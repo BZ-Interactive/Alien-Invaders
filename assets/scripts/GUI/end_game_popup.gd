@@ -19,12 +19,19 @@ extends CenterContainer
 @onready var wave_points: Label = $"PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/Runner VBoxContainer/Wave HBoxContainer/Wave Points Label"
 @onready var run_total_score_label: Label = $"PanelContainer/MarginContainer/VBoxContainer/Score PanelContainer/Runner VBoxContainer/Total Score Label"
 
+@onready var return_button: Button = $"PanelContainer/MarginContainer/VBoxContainer/Return Button"
+@onready var continue_button: Button = $"PanelContainer/MarginContainer/VBoxContainer/Continue Button"
+
+# can only be called on shooter level
+# Spawn runner as bonus after popup close
 func game_won():
 	lost_panel.visible = false
 	won_panel.visible = true
 	runner_panel.visible = false
 	shooter_score.visible = true
 	runner_score.visible = false
+	return_button.visible = false
+	continue_button.visible = true
 	_end_game()
 
 func game_lost():
@@ -33,6 +40,8 @@ func game_lost():
 	runner_panel.visible = false
 	shooter_score.visible = true
 	runner_score.visible = false
+	return_button.visible = true
+	continue_button.visible = false
 	_end_game()
 
 func runner_end():
@@ -41,7 +50,15 @@ func runner_end():
 	runner_panel.visible = true
 	shooter_score.visible = false
 	runner_score.visible = true
+	return_button.visible = true
+	continue_button.visible = false
 	_end_game()
+
+func on_continue_button():
+	GameManager.normal_time_scale()
+	# go on to runner level
+	if GameManager.current_game_mode == GameMode.Type.SHOOTER:
+		GameManager.load_scene(GameMode.Type.RUNNER)
 
 func on_return_button():
 	GameManager.normal_time_scale()
@@ -66,5 +83,5 @@ func _end_game():
 	run_total_score_label.text = str(game_result.total)
 	
 	self.visible = true
-	ScoreManager.reset_current_score()
-	
+	if GameManager.current_game_mode == GameMode.Type.RUNNER:
+		ScoreManager.reset_current_score()
