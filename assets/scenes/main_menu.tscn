@@ -86,6 +86,7 @@ size_flags_vertical = 4
 text = "Play"
 
 [node name="Runner Button" type="Button" parent="PanelContainer/MarginContainer/Left Side VSplitContainer/Buttons VBoxContainer" unique_id=417779280]
+visible = false
 self_modulate = Color(0, 0.9687107, 0.7769277, 1)
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2

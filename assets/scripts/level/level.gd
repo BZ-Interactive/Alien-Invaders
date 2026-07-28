@@ -8,6 +8,8 @@ class_name Level extends Node2D
 
 @onready var player_pos_marker: Marker2D = $"Player Pos Marker2D"
 
+var player: Player
+
 ## runner variables
 var wave: int = 1
 @export var wave_points: int = 1000

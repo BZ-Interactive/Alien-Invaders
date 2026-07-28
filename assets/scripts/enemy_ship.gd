@@ -1,4 +1,4 @@
-class_name Enemy extends CharacterBody2D # this won't move for now in the future will
+class_name Enemy extends CharacterBody2D
 
 @export var projectile: PackedScene
 const shooting_direction = Vector2.DOWN

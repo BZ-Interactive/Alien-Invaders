@@ -55,6 +55,8 @@ func _ready() -> void:
 	health_bar.value = self.health
 	powerup_bar.visible = false
 	_move_into_battle()
+	await get_tree().process_frame
+	GameManager.current_game_scene.player = self
 
 func _input(event: InputEvent) -> void:
 	if not _check_input_blocked() and (event.is_action_pressed("shoot")):
@@ -82,6 +84,7 @@ func _physics_process(_delta: float) -> void:
 func _process(_delta: float) -> void:
 	if powerup_bar.visible:
 		powerup_bar.value = powerup_timer.time_left
+		
 
 func power_up(power_type : String, time : float) -> void:
 	reset_powerup()

@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://3paadlaqhhvd"]
+
+[ext_resource type="Script" uid="uid://dalner3xmefcs" path="res://assets/scripts/invader_ship.gd" id="1_0kc3k"]
+[ext_resource type="Texture2D" uid="uid://de14k43rk8hjk" path="res://assets/sprites/SpaceRage/Enemies/enemy_2_r_m.png" id="1_pa6ie"]
+[ext_resource type="Texture2D" uid="uid://ln31xe2hn3q3" path="res://assets/sprites/SpaceRage/Enemies/enemy_2_r_r2.png" id="2_0kc3k"]
+[ext_resource type="Texture2D" uid="uid://c3efu7lgkx0ky" path="res://assets/sprites/SpaceRage/Enemies/enemy_2_r_l1.png" id="3_ke84p"]
+[ext_resource type="Script" uid="uid://dhh6sa650ou42" path="res://assets/scripts/Runner/runner_hurtbox.gd" id="4_570t8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a8v00"]
+radius = 30.0
+
+[node name="Invader" type="CharacterBody2D" unique_id=1682443637 groups=["damageable", "enemy"]]
+script = ExtResource("1_0kc3k")
+
+[node name="Idle Sprite2D" type="Sprite2D" parent="." unique_id=1272517309]
+texture = ExtResource("1_pa6ie")
+
+[node name="Right Sprite2D" type="Sprite2D" parent="." unique_id=762667613]
+visible = false
+texture = ExtResource("2_0kc3k")
+
+[node name="Left Sprite2D" type="Sprite2D" parent="." unique_id=978446737]
+visible = false
+position = Vector2(-1, -1)
+texture = ExtResource("3_ke84p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1783325517]
+shape = SubResource("CircleShape2D_a8v00")
+debug_color = Color(0.9198904, 0.28524467, 0, 0.41960785)
+
+[node name="Runner Hurtbox" type="Area2D" parent="." unique_id=85280801 groups=["damageable", "enemy"]]
+script = ExtResource("4_570t8")
+
+[node name="Runner CollisionShape2D" type="CollisionShape2D" parent="Runner Hurtbox" unique_id=987538420]
+shape = SubResource("CircleShape2D_a8v00")
+debug_color = Color(0.9273371, 5.4291486e-05, 0.6956019, 0.41960785)
+
+[node name="Cooldown Timer" type="Timer" parent="." unique_id=742683096]
+wait_time = 2.0
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1980842063]
+target_position = Vector2(0, 60)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=654667557]
